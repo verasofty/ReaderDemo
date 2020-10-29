@@ -7,6 +7,1382 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- Base de datos -->
+    <string name="db_Name">KASH MPOS</string>
+
+    <integer name="db_Version">3</integer>
+
+    <!-- TRANSACTION TYPES -->
+    <string name="tt_Venta">V</string>
+    <string name="tt_Cancelacion">C</string>
+    <string name="tt_Devolucion">D</string>
+
+    <!-- Titulo Actividades -->
+    <string name="title_activity_posregister_datos_usuario">Registro 1/3.</string>
+    <string name="title_activity_capture_photo">Capture</string>
+    <string name="title_activity_posregister_type_user">Tipo de Usuario.</string>
+    <string name="title_activity_posregister_configuration">Registro 2/3.</string>
+    <string name="title_activity_posregister_security">Registro 3/3.</string>
+    <string name="title_activity_posregister_token_security">Registro Token/Nip</string>
+    <string name="title_activity_posregister_ok">Informacion</string>
+    <string name="title_activity_poslogin">Ingreso de Usuario</string>
+    <string name="title_activity_posmenu">Menú Entura</string>
+    <string name="title_activity_possales">Venta</string>
+    <string name="title_activity_posread_card">Lectura de Tarjeta</string>
+    <string name="title_activity_possales_successful">Confirmaci\u00f3n de Venta</string>
+    <string name="title_activity_posinfo">Info. POS</string>
+    <string name="title_activity_pos_terminals_Adic">Terminales Adicionales</string>
+    <string name="add_terminal_user">Agrega Terminal Adicional</string>
+    <string name="list_device">Vincular tu lector</string>
+    <string name="title_detail_terminal">Detalle Terminal</string>
+    <string name="title_activity_pos_config">Mi POS</string>
+    <string name="title_activity_service_pay">Pago de Servicios</string>
+    <string name="title_activity_recharge_tae">Tiempo Aire</string>
+    <string name="title_activity_postransactions_info">Consulta</string>
+
+    <string name="registerDataComerce">Datos del Comercio 1/4</string>
+    <string name="registerDataBank">Datos Bancarios 2/4</string>
+    <string name="registerConfiguration">Configuración 3/4</string>
+    <string name="registerSecurity">Seguridad 4/4</string>
+    <string name="registerTypeUser">Tipo Usuario</string>
+    <string name="registerTokenNip">Registro Token/Nip</string>
+    <string name="userLocatario">Locatario</string>
+    <string name="userAdicional">Adicional</string>
+    <string name="numberCountBank">Número Cuenta/Clabe</string>
+    <string name="numberCountBankClabe">Adicional</string>
+    <string name="nameMerchant">Nombre Comercio</string>
+    <string name="registerContacto">Contacto</string>
+    <!-- Hint labels -->
+    <string name="hint_merchant">Comercio</string>
+    <string name="hint_number_token">10 digitos</string>
+    <string name="hint_number_nip">4 digítos</string>
+    <string name="hint_name_user">Nombre</string>
+    <string name="hint_last_name">Apellidos</string>
+    <string name="hint_addres_home">Calle. N°. Col.</string>
+    <string name="hint_number_count_bank">N°Cuenta(14 digítos)</string>
+    <string name="hint_number_count_bank_clabe">N°Cuenta(18 digítos)</string>
+    <string name="hint_number_count_bank_confirm">Confirmar Cuenta</string>
+    <string name="hint_number_count_bank__clabe_confirm">Confirmar Clabe</string>
+    <string name="hint_mail_example_azteca">example@entura.com.mx</string>
+    <string name="hint_number_digits_telephone">10 digítos</string>
+
+
+    <!-- Titulo Pantallas -->
+    <string name="EnableCustomer">Activar Comercio</string>
+
+    <!-- Etiquetas Pantallas -->
+    <string name="AkiiPagoLogo">Logo</string>
+    <string name="Amount">MONTO</string>
+    <string name="Amount_TAX">Monto IVA</string>
+    <string name="Amount_Tip">Monto Propina\u0020\u0020$</string>
+    <string name="Amount_single_Tip">Propina\u0020$</string>
+    <string name="Amount_Total">Monto Total</string>
+    <string name="Amount_singular_Total">Total\u0020\u0020\u0020\u0020\u0020$</string>
+    <string name="cancelations">Consultas</string>
+    <string name="Congrats">¡Felicidades!</string>
+    <string name="CustomerNumber">Número de Comercio</string>
+    <string name="affiliationIdLabel">N\u00famero de Afilicaci\u00f3n</string>
+    <string name="nombre">Nombre</string>
+    <string name="devolutions">Devolver</string>
+    <string name="Email">E-mail</string>
+    <string name="FeeDummie">$ 0.0000</string>
+    <string name="imgMessage">Mensaje</string>
+    <string name="imgOK">OK</string>
+    <string name="info">Informaci\u00f3n</string>
+    <string name="mnu_configuration">Info</string>
+    <string name="mnu_services_pay">Servicios</string>
+    <string name="leyenda_voucher">"Por este pagar\u00e9 prometo y me obligo incondicionalmente a pagar a la orden de la instituci\u00f3n emisora de la tarjeta correspondiente el importe de la operaci\u00f3n cuyos datos de identificaci\u00f3n se muestran en este documento bajo los t\u00e9rminos y condiciones establecidos en el contrato celebrado con dicha instituci\u00f3n para el uso de la citada tarjeta. Asimismo reconozco, que el presente comprobante de operaci\u00f3n corresponde a los datos e importes indicados en el mismo, teniendo pleno valor probatorio y fuerza legal en virtud de que dicha operaci\u00f3n fue firmada a nombre propio de forma aut\u00f3grafa o electr\u00f3nica siendo el suscrito el \u00fanico responsable, estando conforme con el cargo realizado en este momento a mi tarjeta. El presente documento es negociable solo con instituciones de Cr\u00e9dito"</string>
+    <string name="merchantFee">Comisi\u00f3n a pagar 3.5%</string>
+    <string name="myAccount">Mi Cuenta</string>
+    <string name="Other">Otro</string>
+    <string name="Password">Contrase\u00f1a</string>
+    <string name="labelWelcome">Bienvenido, ingresa tu número NIP</string>
+    <string name="numeroNip">NIP</string>
+    <string name="PasswordConfirm">Confirmar Contrase\u00f1a</string>
+    <string name="Percent_fifteen">15%</string>
+    <string name="Percent_ten">10%</string>
+    <string name="Percent_twenty">20%</string>
+    <string name="qrys">"Consulta"</string>
+    <string name="registerPOSOK">Has activado correctamente</string>
+    <string name="registerPOSOK2">Entura</string>
+    <string name="sales">Venta</string>
+    <string name="SignIn">Ingresar</string>
+    <string name="exitApp">SALIR</string>
+    <string name="TAX">IVA</string>
+    <string name="Tip">Propina</string>
+    <string name="User">Usuario</string>
+    <string name="UserDummie">Bienvenido</string>
+    <string name="lb_vincular_device">Vincular lector</string>
+    <string name="UserName">Nombre de Usuario</string>
+    <string name="LoginInfo">\n\nUn Servicio de Red Global Entura</string>
+    <string name="LoginInfoCallCenter">Centro de Atención Telefónica\n01-800-ENTURED(368-87-33)\ncontacto@entura.com.mx</string>
+    <string name="LoginInfoCallCenter1">Centro de Atención Telefónica Conm(55)41240063</string>
+    <string name="LoginInfoCallCenter2"> Movil/Watsp 55-43890865 \n  agregadores@credencialprocessing.com</string>
+    <string name="CurrencySign">$</string>
+    <string name="confirma_clave_nip">Confirma Clave NIP</string>
+    <string name="clave_nip">Clave NIP</string>
+    <string name="last_name">Apellido</string>
+    <string name="token_security">Token</string>
+    <string name="label_help">Ayuda Entura Mpos</string>
+    <string name="label_type_identification_photo">Tipo de Identificación:</string>
+    <string name="label_type_address_photo">Comp. de Domicilio:</string>
+    <string name="label_telephone">Telefono</string>
+    <string name="label_type_device">Dispositivo :</string>
+    <string name="label_type_merchant"> Comercio         :</string>
+
+
+    <string name="idTerminalLabel">ID. Terminal:</string>
+    <string name="aliasTerminalLabel">Alias de la Terminal:</string>
+    <string name="nombreTerminalLabel">Nombre de la Terminal:</string>
+    <string name="limiteMaximoLabel">L\u00edmite M\u00e1ximo por Transacci\u00f3n:</string>
+    <string name="limiteMinimoLabel">L\u00edmite M\u00ednimo por Transacci\u00f3n:</string>
+    <string name="maximoTxPorDiaLabel">M\u00e1x. de Transacciones por D\u00eda:</string>
+    <string name="maximoTxPorMesLabel">M\u00e1x. de Transacciones por Mes:</string>
+    <string name="areaOperacionLabel">\u00c1rea de Operaci\u00f3n:</string>
+    <string name="rfcLabel">RFC:</string>
+    <string name="direccionLabel">Direcci\u00f3n:</string>
+    <string name="direccionLabelRegister">Domicilio</string>
+
+    <!-- Errores -->
+    <string name="err_EmptyValuesReg">Debe capturar todos los valores para el registro de la terminal!</string>
+    <string name="err_EmptyDatosComercio">Debe capturar Nombre Comercio,Nombre,Apellidos y Dirección!</string>
+    <string name="err_EmptyDatosComercioBank">Debe capturar Cuenta, Clabe, Telefono y Mail!</string>
+    <string name="err_InvalidMail">E-Mail invalido, verifique!</string>
+    <string name="err_EmptyCapturePhoto">Debe capturar fotografia Identificación/Dirección!</string>
+    <string name="err_EmptyDatosTerminalUsers">Debe capturar Nombre, Apellidos y Nip!</string>
+    <string name="err_EmptyDatosComercioLengthN">La longitud N°Guardadito debe de ser de 20, verifique!</string>
+    <string name="err_EmptyDatosComercioBankCuenta">La longitud N°Cuenta debe de ser de 14, verifique!</string>
+    <string name="err_EmptyDatosComercioBankCuentaClabe">La longitud N°Clabe debe de ser de 18, verifique!</string>
+    <string name="err_EmptyDatosComercioBankTelephone">La longitud N°Telefonico debe de ser de 10, verifique!</string>
+    <string name="err_EmptySecurity">Debe capturar número Nip!</string>
+    <string name="err_EmptySecurityConfirmNip">Confirme Nip!</string>
+    <string name="err_EmptySecurityNipLength">Logitud de Nip incorrecto, verifique!</string>
+    <string name="err_EmptyTokenLength">Logitud de Token incorrecto, verifique!</string>
+    <string name="err_EmptyValuesLogin">Debe capturar todos los valores para ingresar al sistema!</string>
+    <string name="err_PasswordReg">No coincide la contrase\u00f1a y la confirmaci\u00f3n. verifique!</string>
+    <string name="err_Nguardadito">No coincide la cuenta Guardadito. verifique!</string>
+    <string name="err_N_countBank">No coincide N°Cuenta. verifique!</string>
+    <string name="err_N_countBankClabe">No coincide N°Clabe. verifique!</string>
+    <string name="err_N_nip">No coincide NIP. verifique!</string>
+    <string name="err_UpdStatusApp">Error al actualizar el estatus de la aplicaci\u00f3n!</string>
+    <string name="err_RegisterPOS">Error al realizar el registro de la terminal.\n\n</string>
+    <string name="err_AddMenuOptions">Error al almacenar las opciones de men\u00fa para el usuario</string>
+    <string name="err_UpdMenuOptions">Error al actualizar las opciones de men\u00fa para el usuario</string>
+    <string name="err_Connection">No se encuentra una conexi\u00f3n activa, verifique!</string>
+    <string name="err_NoMenuOptions">No hay opciones de menu disponibles!</string>
+    <string name="err_NoTransactions">No hay transacciones registradas para esta terminal!</string>
+    <string name="err_NoTransactionsCancel">No hay transacciones que puedan ser canceladas!</string>
+    <string name="err_NoTransactionsReturn">No hay transacciones que puedan ser devueltas!</string>
+    <string name="err_ReadingAttemps">Se ha superado el n\u00famero de intentos de lectura!</string>
+    <string name="err_System">Error del sistema: </string>
+    <string name="err_NoSwipedCard">Error del sistema: No se ha deslizado una tarjeta. Reintente</string>
+    <string name="err_CardNumberEmpty">Debe ingresar el número de tarjeta</string>
+    <string name="err_NoCVV">Debe capturar el código de seguridad (CVV).</string>
+    <string name="err_No_Exp_Date">Debe capturar fecha de expiración MM/AA.</string>
+    <string name="err_No_Exp_Date_expirate">Tarjeta expirada!.</string>
+    <string name="err_No_Exp_Date_month_invalid">Mes invalido!.</string>
+    <string name="err_NoCVV_equals">Código CVV no coincide, verifique!.</string>
+    <string name="err_NoCVVConfimr">Debe capturar el código de seguridad (CVV) y confirmar.</string>
+
+    <!-- Botones Pantallas -->
+    <string name="Activate">ACTIVAR</string>
+    <string name="SignInMayus">INGRESAR</string>
+    <string name="Back">REGRESAR</string>
+    <string name="Cancel">CANCELAR</string>
+    <string name="CancelTran">CANCELAR PAGO</string>
+    <string name="DevolTran">DEVOLUCION</string>
+    <string name="registerTerminal">REGISTRAR</string>
+    <string name="Resend">ENVIAR VOUCHER</string>
+    <string name="send">ENVIAR</string>
+    <string name="Continue">CONTINUAR</string>
+    <string name="Charge">COBRAR</string>
+    <string name="Pay">PAGAR</string>
+    <string name="Sign">FIRMAR</string>
+    <string name="Consult">CONSULTAR</string>
+    <string name="revert">VOLVER</string>
+    <string name="finalize">FINALIZAR</string>
+
+    <!-- Mensajes -->
+    <string name="msg_titleInform">Mensaje</string>
+    <string name="msg_titleConfirm">Confirmaci\u00f3n</string>
+    <string name="msg_titleError">Error</string>
+    <string name="msg_titleAlert">¡Alerta!</string>
+    <string name="msg_btnOK">Aceptar</string>
+    <string name="msg_btnCancel">Cancelar</string>
+    <string name="msg_buttonYes">SI</string>
+    <string name="msg_buttonNo">NO</string>
+    <string name="msg_confirmExit">Confirma que desea salir de la aplicaci\u00f3n</string>
+    <string name="msg_save_device">Vincular dispositivo ?</string>
+    <string name="dlg_registerPos">Registrando terminal en el sistema central!&#8230;</string>
+    <string name="dlg_execLogin">Validando&#8230;</string>
+    <string name="dlg_execCardCharge">Realizando cargo a la tarjeta!&#8230;</string>
+    <string name="dlg_execCancelations">Procesando cancelaci\u00f3n, espere por favor!</string>
+    <string name="dlg_execDevolution">Procesando devoluci\u00f3n, espere por favor!</string>
+    <string name="dlg_help_tonken_nip">Debe capturar TOKEN que le genero al registrar afiliado, debe ser de 10 digitos!</string>
+    <string name="dlg_capture_photo_IdentFront">Capture el frente de la Identificación</string>
+    <string name="dlg_capture_photo_IdentBack">Capture el reverso de la Identificación</string>
+    <string name="dlg_card_chip">Tarjeta de Chip, espere un momento...</string>
+    <string name="dlg_card_swipe">Tarjeta de banda, espere un momento...</string>
+    <string name="dlg_send_transaction">Enviando transacción...</string>
+    <string name="dlg_device">Lectura con lector</string>
+
+    <!-- REGISTRO ENTURA -->
+    <string name="et_hint_afiliacion">No. de Afiliacion</string>
+    <string name="et_hint_serial_number">No. de Serie del Lector (6 Ultimos Digitos)</string>
+    <string name="et_hint_first_name">Nombre(s)</string>
+    <string name="et_hint_last_name_1">Apellido Paterno</string>
+    <string name="et_hint_last_name_2">Apellido Materno</string>
+    <string name="et_hint_mail">Correo Electrónico</string>
+    <string name="et_hint_mail_confirm">Confirmar correo</string>
+    <string name="et_hint_nip_number">NIP de Acceso de 4 Digitos</string>
+    <string name="et_hint_nip_number_confirm">Confirma NIP</string>
+    <string name="et_hint_promoter">No. de Promotor</string>
+    <string name="tv_branch_office">Sucursal</string>
+    <string name="tv_address">Direccion</string>
+    <string name="tv_promoter">Número de Promotor</string>
+    <string name="btn_next">SIGUIENTE</string>
+    <string name="btn_register_confirm">SIGUIENTE</string>
+    <string name="btn_return_login">INGRESAR</string>
+    <string name="bar_step_1">Registro de Cliente 1/3</string>
+    <string name="label_transaction_list">Consulta de Transacciones</string>
+    <string name="bar_step_2">Registro de Cliente 2/3</string>
+    <string name="bar_step_3">Registro de Cliente 3/3</string>
+    <string name="bar_step_4">Registro Completo</string>
+    <string name="tv_register_success">En breve recibirá un correo electrónico con un Token de confirmacion.</string>
+    <string name="tv_register_success_1">Inicie sesión para ingresar el Token recibido.</string>
+    <string name="title_pop_up_validate_token">Validar Token</string>
+    <string name="msgError_invalid_token">Longitud del token debe ser de 6, favor de verificar.</string>
+    <string name="token_validate">Compruebe su correo electrónico e introduzca el código de activación</string>
+    <string name="select_type_pay">¿Qué forma de pago desea?</string>
+    <string name="lector_bt">Lector Bluetooth</string>
+    <string name="lector_qr">Lector QR</string>
+    <string name="lector_message">Espere a que se escanee el código QR, una vez procesado se procederá a generar el abono.</string>
+
+
+    <!-- FORMATOS -->
+    <string name="val_FormatCurrency">#,##0.00</string>
+    <string name="val_FormatCurrencyFee">$ #,##0.00</string>
+    <string name="val_FormatDate">yyyy-MM-dd HH:mm</string>
+    <string name="val_FormatDateShort">yyyy-MM-dd</string>
+    <string name="val_zeros">$0.00</string>
+
+
+    <!--<string name="DEFAULT_URL">http://192.168.137.1:8080/MTT/POSOnLineServices</string>
+    <string name="DEFAULT_SERVICE_PAYMENTS_URL">http://192.168.137.1:8080/MTT/ServicesPayments</string>-->
+
+    <string name="DEFAULT_URL">https://sfpayments.com.mx:40443/MTT/POSOnLineServices</string>
+    <string name="DEFAULT_SERVICE_PAYMENTS_URL">https://sfpayments.com.mx:40443/MTT/POSOnLineServices</string>
+    <string name="DEFAULT_AVISO_PRIVACIDAD">https://sfpayments.com.mx:40443/SF/SiteSfMobile/AvisoDePrivacidad.pdf</string>
+    <string name="URL_TERM_AND_CONDITIONS">https://sfpayments.com.mx:40443/SF/SiteSfMobile/terminos_affipay.pdf</string>
+    <string name="DEFAULT_MERCHANT_ID">E0000851</string>
+
+    <!--<string name="DEFAULT_URL">https://sfpayments.com.mx:40443/MTT/POSOnLineServices</string>
+    <string name="DEFAULT_SERVICE_PAYMENTS_URL">https://sfpayments.com.mx:40443/MTT/ServicesPayments</string>-->
+
+
+    <string name="Text">Status: -</string>
+    <string name="List">List paired Devices</string>
+    <string name="Find">Search new Devices / Cancel</string>
+
+
+    <!-- ARREGLOS -->
+    <string-array name="monthsnoint_array">
+        <item>00</item>
+        <item>03</item>
+        <item>06</item>
+        <item>09</item>
+        <item>12</item>
+        <item>15</item>
+        <item>18</item>
+    </string-array>
+    <string-array name="months">
+        <item>------</item>
+        <item>Enero</item>
+        <item>Febrero</item>
+        <item>Marzo</item>
+        <item>Abril</item>
+        <item>Mayo</item>
+        <item>Junio</item>
+        <item>Julio</item>
+        <item>Agosto</item>
+        <item>Septiembre</item>
+        <item>Octubre</item>
+        <item>Noviembre</item>
+        <item>Diciembre</item>
+    </string-array>
+
+    <string-array name="devices">
+        <item>Infinite</item>
+        <item>IdTech</item>
+    </string-array>
+
+    <string-array name="paises_pasaporte">
+        <item>Seleccione País</item>
+        <item>México</item>
+        <item>USA</item>
+    </string-array>
+
+    <string-array name="devicesPayment">
+        <item>Scan-Card</item>
+        <item>Lector</item>
+    </string-array>
+    <string-array name="devicesMerchant">
+        <item>Retail</item>
+        <item>Propina</item>
+    </string-array>
+
+    <string name="title_activity_postransactions_cancel">Cancelaci\u00f3n</string>
+    <string name="title_activity_poscancel_successful">Cancelaci\u00f3n Exitosa</string>
+    <string name="title_activity_postransactions_devolutions">Devoluci\u00f3n</string>
+    <string name="title_activity_posdev_successful">Devoluci\u00f3n Exitosa</string>
+    <string name="cardLegend">Tarjeta</string>
+    <string name="singLegend">Firma del cliente</string>
+    <string name="cardLegend2">N° de Tarjeta</string>
+    <string name="salesLegend">Ventas</string>
+    <string name="cancelLegend">Cancelaci\u00f3n</string>
+    <string name="returnLegend">Devoluci\u00f3n</string>
+    <string name="reportLegend">Consulta</string>
+    <string name="infoPOSLegend">Informaci\u00f3n POS</string>
+    <string name="AdditionalData">DATOS ADICIONALES</string>
+    <string name="Ref1">Referencia 1</string>
+    <string name="Ref2">Referencia 2</string>
+    <string name="EmailLegend">Correo Electr\u00f3nico</string>
+    <string name="FinishLegend">ENVIAR VOUCHER</string>
+    <string name="FinishSing">TERMINAR</string>
+    <string name="CleanSign">BORRAR</string>
+    <string name="valAuthorizedAmount">Monto autorizado :</string>
+    <string name="CardValueDummie">493173******0007</string>
+    <string name="legendTvSign">Firma</string>
+    <string name="legendTvResend">ENVIAR</string>
+    <string name="btnCloseLegend">Cerrar</string>
+
+    <string name="recharge">Tiempo Aire</string>
+    <string name="compania">Compañía</string>
+    <string name="confirmar">CONFIRMAR</string>
+    <string name="cantidad">Cantidad $ </string>
+    <string name="service_pay">Pago de Servicios</string>
+
+    <!-- Excepcion -->
+    <string name="exception">Detalle de Error</string>
+
+
+    <string name="search">search</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="welcome">Bienvenido</string>
+
+    <string-array name="identFoto">
+        <item>Seleccione...</item>
+        <item>INE/IFE</item>
+        <item>Licencia</item>
+        <item>Pasaporte</item>
+    </string-array>
+
+    <string-array name="comprobante">
+        <item>Seleccione...</item>
+        <item>Agua</item>
+        <item>Luz</item>
+        <item>Telefono</item>
+        <item>Predio</item>
+    </string-array>
+    <string name="title_activity_example_get_comerce">ExampleGetComerce</string>
+    <string name="fogot_my_password">Olvidé mi contraseña</string>
+    <string name="title_activity_menu_navigation">MenuNavigation</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--Strings PROPINA y DESCRIPCION DE VENTA-->
+    <string name="hint_description">Descripción de la venta</string>
+    <string name="tip">Propina:</string>
+    <string name="percent_0">0%</string>
+    <string name="percent_5">5%</string>
+    <string name="percent_10">10%</string>
+    <string name="percent_15">15%</string>
+    <string name="percent_20">20%</string>
+    <string name="percent_25">25%</string>
+    <string name="color_button_percent">#F2F2F2</string>
+    <string name="color_button_percent_pressed">#003C7A</string>
+    <string name="color_text_percent">#003C7A</string>
+    <string name="color_text_percent_pressed">#FFFFFF</string>
+
+    <!--New Strings "POSCancelSuccessful"-->
+    <string name="date_message">Fecha:</string>
+    <string name="message_folio">FOL:</string>
+    <string name="message_lote">LOT:</string>
+    <string name="message_authorization">Autorizacion No. </string>
+    <string name="message_cancel">CANCELADO</string>
+    <string name="message_error_mail">Debe ingresar una dirección de E-Mail valida!</string>
+    <string name="message_send_mail">Enviando correo electrónico, por favor espere...</string>
+    <string name="message_important">Importante</string>
+    <string name="message_sending_mail">Comprobante enviado de manera correcta!</string>
+
+    <!--New Strings "POSInfo"-->
+    <string name="message_configuration">Configuración</string>
+    <string name="message_get_information">Obteniendo información por favor espere...</string>
+
+    <!--New Strings "RegisterConditions"-->
+    <string name="message_error_term_and_cond">Si no acepta los terminos y condiciones no puede concluir con su registro.</string>
+    <string name="accept_term_and_cond">Acepto los Terminos y Condiciones</string>
+
+    <!--New Strings "RegisterDataBank"-->
+    <string name="message_error_number_movil">El formato es: +521 123 456 7890</string>
+    <string name="message_error_register">La configuración del dispositivo no permite realizar el registro, reporte a Atención a Clientes</string>
+    <string name="dtp_accept_term_and_cond">Acepto los </string>
+    <string name="link_accept_term_and_cond"><u>Términos y Condiciones</u></string>
+
+    <!--New Strings "RegisterDataClient"-->
+    <string name="message_error_name_complete">Capture su nombre y apellido</string>
+
+    <!--New Strings "POSSales"-->
+    <string name="dlg_message_bluetooth_off">Bluetooth desactivado</string>
+    <string name="btn_bluetooth_on">Encender</string>
+    <string name="message_reader_conected">Lector conectado </string>
+    <string name="message_error_amount">Debe especificar al menos un importe</string>
+    <string name="dlg_message_reader_on">Encienda dispositivo \nN°Serie :</string>
+    <string name="message_authorized_permits">Permiso Exitoso </string>
+    <string name="message_denied_permits">Permiso Denegado </string>
+    <string name="message_refresh_devices">Actualizando dispositivos..</string>
+    <string name="message_reading">Lectura con lector</string>
+
+    <!--New Strings "POSSignTransactions"-->
+    <string name="message_error_data_voucher">No se recibieron los datos para crear el voucher</string>
+    <string name="message_error_sending_voucher">Error durante el envio del voucher, puede reintentar en la opción de consultas</string>
+    <string name="message_error_app">La aplicación se encuentra inconsistente, reportar a CAT por favor.</string>
+    <string name="message_error_clean_sign">No fue posible borrar la firma, reportar en CAT por favor.</string>
+    <string name="message_error_invalid_mail">Mail Invalido</string>
+    <string name="message_error_sign_voucher">Debe de firmar el voucher.</string>
+
+    <!--New Strings "CustomAdapterTransaction"-->
+    <string name="transaction_sale">Venta</string>
+    <string name="transaction_cancelation">Cancelación</string>
+    <string name="transaction_refund">Devolución</string>
+
+    <!--New Strings "DetailFragment"-->
+    <string name="approved">APROBADA</string>
+    <string name="cancelled">CANCELADA</string>
+    <string name="rejected">DECLINADA</string>
+
+    <!--New Strings "DetailFragment"-->
+    <string name="title_transactions">Historial de Transacciones</string>
+    <string name="description">Descripción</string>
+    <string name="receive">Recibiste</string>
+    <string name="commission">Comisión</string>
+    <string name="payment_type">Tipo de pago</string>
+    <string name="status">Estatus</string>
+    <string name="way_to_pay">Forma de pago</string>
+    <string name="date">Fecha</string>
+    <string name="time">Hora</string>
+    <string name="transaction_id">ID Transacción</string>
+    <string name="authorization">Autorización</string>
+    <string name="btn_resend">ENVIAR COMPROBANTE</string>
+
+    <!--New Strings "Utils"-->
+    <string name="sale_successful">Venta Exitosa!</string>
+    <string name="cancel_successful">Cancelación Exitosa!</string>
+    <string name="refund_successful">Devolución Exitosa!</string>
+
+    <!--New Strings "Utils"-->
+    <string name="message_sending_password">La contraseña fue enviada a su correo electrónico.</string>
+
+    <!--New Strings "Intro"-->
+    <string name="btn_access">INGRESAR</string>
+    <string name="btn_register">REGISTRARME</string>
+
+    <!--New Strings "Intro"-->
+    <string name="time_message">Hora: </string>
+    <string name="card_message">Tarjeta</string>
+
+    <!--New Strings "TypeRegister"-->
+    <string name="register_one">Ya tengo mi Tarjeta Affipay</string>
+    <string name="register_two">Voy a solicitar\n mi Tarjeta Affipay</string>
+
+    <!--New Strings "POSReadCard"-->
+    <string name="message_type_reader">Deslice, inserte o aproxime tarjeta...</string>
+
+    <!--New Strings "TransferSuccessful"-->
+    <string name="message_operation_successful">La operación se ha realizado con éxito</string>
+    <string name="watch_voucher">Ver Comprobante</string>
+    <string name="question_send_voucher">¿Desea enviar el comprobante?</string>
+
+    <!--New Strings "PanelFooter"-->
+    <string name="menu_home">INICIO</string>
+    <string name="menu_sale">COBRAR</string>
+    <string name="menu_card">TARJETA</string>
+    <string name="menu_loans">PRÉSTAMOS</string>
+    <string name="menu_pay">PAGAR</string>
+    <string name="menu_consult">CONSULTAR</string>
+
+    <string name="navigation_menu_home">Inicio</string>
+    <string name="navigation_menu_sale">Venta</string>
+    <string name="navigation_menu_card">Tarjeta</string>
+    <string name="navigation_menu_loans">Prestamo</string>
+    <string name="navigation_menu_pay">Pagos</string>
+    <string name="navigation_menu_consult">Consulta</string>
+    <string name="navigation_menu_help">Ayuda</string>
+    <string name="navigation_menu_term_cond">Terminos y Condiciones</string>
+    <string name="navigation_menu_config">Configuración</string>
+    <string name="navigation_menu_close">Cerrar sesion</string>
+    <string name="navigation_menu_select_card">Seleccion de Tarjeta</string>
+    <string name="msg_device_not_found">Causas posibles: \n-Bateria baja \n-El Bluetooth del teléfono celular no ha sido encendido \n-Lector dañado</string>
+    <string name="title_device">Sincronizar lector</string>
+
+    <string name="centro_atencion">Centro de atención AffiPay</string>
+    <string name="consulta">Si tiene consultas por favor llamenos a:</string>
+    <string name="numero_centro">Desde México:\n800 286 9587\n\nDesde el Exterior:\n+1 636 722 7111</string>
+    <string name="credencial_argentina">Credencial Argentina S.A.</string>
+
+    <string name="submenu_trans_mpos">Transacciones POS</string>
+    <string name="submenu_trans_wallet">Estado de Cuenta</string>
+    <string name="submenu_ver_cuenta">Ver Cuenta</string>
+    <string name="title_submenu">Seleccione una Opción </string>
+
+
+    <string name="msg_generate_pin">Ver PIN</string>
+    <string name="text_card">Cuenta </string>
+    <string name="status_operative">ACTIVA</string>
+    <string name="status_block_permanent">BLOQUEO PERMANENTE</string>
+    <string name="status_block_temporary">BLOQUEO TEMPORAL</string>
+    <string name="title_select_card">Cuentas</string>
+
+
+    <!-- Strings for IDMission-->
+
+    <!--NO ESTABAN TRADUCIDOS EN LA APP DEMO-->
+    <string name="mrz_retry_count">MRZ retry count</string>
+    <string name="barcode_retry_count">BARCODE retry count</string>
+    <string name="mrz_barcode_retry_count">MRZ and BARCODE retry count</string>
+    <string name="finger_length_percentage">Finger length percentage</string>
+    <string name="sharp_threshold">Sharp threshold</string>
+    <string name="counter_for_finger_width_average">Finger width average(Counter)</string>
+    <string name="face_eye_open_threshold">Eyes Open Threshold</string>
+    <string name="face_spoof_detection_threshold">Spoof Detection Threshold</string>
+    <string name="video_conference_width">Width</string>
+    <string name="video_conference_height">Height</string>
+    <string name="video_conference_framerate">Frame rate</string>
+    <string name="auto_fill_back_tab">Capture Back(Autofill)</string>
+    <string name="idv_face_match_temp">999 IDV+Face Match</string>
+    <!--NO ESTABAN TRADUCIDOS EN LA APP DEMO-->
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="account_setting">Configuración de la cuenta</string>
+
+    <string name="sdk_version">SDK Versión</string>
+
+    <!-- Navigation drawer list -->
+    <string name="account_setup">Configuración de cuenta</string>
+    <string name="process_flow">Flujo del proceso</string>
+    <string name="about_us">Sobre nosotros</string>
+
+    <!-- Error Messages -->
+    <string name="save_account_detail_error">Guardar los detalles de la primera cuenta</string>
+    <string name="please_enter_url">Guardar los detalles de la primera cuenta</string>
+    <string name="id_capture_save_msg">Guardar configuración</string>
+
+    <!-- Default Values -->
+    <!--<string name="url">https://evolv.idmission.com/IDS/service/integ/idm/thirdparty/upsert</string>-->
+    <string name="url">https://demo.idmission.com/IDS/service/integ/idm/thirdparty/upsert</string>
+    <string name="product_name">Identity_Validation_and_Face_Matching</string>
+
+    <!--Fields-->
+    <string name="re_capture">Recapturar</string>
+    <string name="id_validation">ID de validación</string>
+    <string name="face_match">Coincidencia del rostro</string>
+    <string name="id_validation_face_match">Imagen del proceso y coincidencia del rostro</string>
+    <string name="id_validation_video_match">Proceso de imagen y video coincidente</string>
+    <string name="id_details">Detalles de identificación</string>
+    <string name="result">Resultado</string>
+    <string name="process_image">Solo imagen del proceso</string>
+    <string name="match_face">Solo coincidencia del rostro</string>
+    <string name="process_image_and_match_face">Imagen del proceso y coincidencia del rostro</string>
+    <string name="generate_otp">Generar código de verificación</string>
+    <string name="verify_otp">Verificar</string>
+    <string name="customer_update">Actualización del cliente</string>
+    <string name="customer_Verification">Verificación del cliente</string>
+    <string name="address_matching">Coincidencia de direcciones</string>
+    <string name="address_capture">Captura de POA</string>
+    <string name="show_result_raw_data">Mostrar todos los datos sin procesar</string>
+    <string name="raw_data_request">Datos sin procesar de la solicitud</string>
+    <string name="raw_data_response">Datos sin procesar de la respuesta</string>
+    <string name="clear_data_back_main_page">Borrar todos los datos y volver a la página principal</string>
+    <string name="emp_verification">Verificación de empleados</string>
+    <string name="emp_enrollment">Inscripción del empleado (Face Match)</string>
+    <string name="back">Atrás</string>
+    <string name="generate_token">Generar Token</string>
+    <string name="download">Descargar</string>
+    <string name="create_emp_override">Crear empleado (anular)</string>
+    <string name="create_customer_override">Crear cliente (anular)</string>
+    <string name="verify_emp_override">Verificar empleado (Anular)</string>
+    <string name="verify_customer_override">Verificar cliente (Anular)</string>
+    <string name="id_validation_with_cus_enroll">ID de validación con la inscripción del cliente</string>
+    <string name="id_validation_with_emp_enroll">ID de validación con la inscripción del cliente</string>
+    <string name="id_face_with_emp_enroll">ID y rostro con la inscripción del empleado</string>
+    <string name="id_face_with_video_enroll">ID y rostro con grabación de video</string>
+    <string name="customer_fp_enrollment_title">Inscripción del cliente con Biométricos FP</string>
+    <string name="customer_fp_enrollment">Inscripción de huellas dactilares (cliente)</string>
+    <string name="employee_fp_enrollment_title">Inscripción del empleado con Biométicos FP</string>
+    <string name="employee_fp_enrollment">Inscripción de huellas dactilares (empleado)</string>
+    <string name="employee_update">Actualización del empleado</string>
+    <string name="customize_product">Personalizar producto</string>
+    <string name="capture">Capturar</string>
+    <string name="initiate">iniciada</string>
+
+    <!-- Account Setup-->
+    <string name="test_url">URL de prueba</string>
+    <string name="login_id">Nombre de usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="merchant_id">ID del comerciante</string>
+    <string name="product_id">ID del producto</string>
+    <string name="product">Nombre del producto</string>
+    <string name="language">Idioma</string>
+    <string name="save_account">Guardar cuenta</string>
+    <string name="edit_account">Editar cuenta</string>
+    <string name="debaug_mode">Modo de depuración</string>
+    <string name="off">Apagar</string>
+    <string name="on"> Encender</string>
+    <string name="initialize">INICIALIZAR</string>
+    <string name="enter_url">INGRESE URL</string>
+    <string name="enter_login_id">INGRESE NOMBRE DE USUARIO</string>
+    <string name="enter_password">INGRESE CONTRASEÑA</string>
+    <string name="enter_merchant_id">INGRESE ID DEL COMERCIANTE</string>
+    <string name="enter_product_id">INGRESE ID DEL PRODUCTO</string>
+    <string name="enter_product_name">INGRESE NOMBRE DEL PRODUCTO</string>
+    <string name="camera_permission">Es necesario habilitar permisos a la camara.</string>
+
+    <!-- Card Capture-->
+    <string name="captute">Capturar</string>
+    <string name="back_capture">&lt;  Atrás</string>
+    <string name="next_capture">Siguiente</string>
+    <string name="card_details">Detalles de la tarjeta:</string>
+
+
+    <!-- ID Capture-->
+    <string name="configuration">Configuración</string>
+    <string name="id_outline_color">ID del color del contorno</string>
+    <string name="transparency">Transparencia (1-100)</string>
+    <string name="detected_id_outline_color">ID del color del contorno detectado</string>
+    <string name="color_outside_outline">Color fuera del contorno</string>
+    <string name="detected_color_outside_outline">Color detectado fuera del contorno</string>
+    <string name="light_threshold">Umbral de luz</string>
+    <string name="min_focus_threshold">Umbral de enfoque mínimo</string>
+    <string name="max_focus_threshold">Umbral de enfoque máximo</string>
+    <string name="glare_percentage">Porcentaje de deslumbramiento</string>
+    <string name="enable_capture_button_time">Habilitar el tiempo del botón de captura (segundo)</string>
+    <string name="max_image_size">Tamaño máximo de la imagen (kb)</string>
+    <string name="image_height">Altura de imagen</string>
+    <string name="image_width">Ancho de la imagen</string>
+    <string name="header_text_label_size">Tamaño de la etiqueta del texto en encabezado</string>
+    <string name="text_label_size">Tamaño de etiqueta de texto</string>
+    <string name="text_font_type">Tipo de fuente de texto</string>
+    <string name="text_font_style">Estilo de letra del texto</string>
+    <string name="header_text_font_type">Tipo de fuente del texto en encabezado</string>
+    <string name="header_text_font_style">Estilo de fuente del texto en encabezado</string>
+    <string name="text_label_color">Color de la etiqueta de texto</string>
+    <string name="header_text_label_color">Color de la etiqueta del texto en encabezado</string>
+    <string name="back_button_color">Color del botón trasero</string>
+    <string name="retry_button_color">Reintentar el color del botón</string>
+    <string name="retry_button_border_color">Reintentar el color del borde del botón</string>
+    <string name="confirm_button_color">Confirmar el color del botón</string>
+    <string name="confirm_button_style">Confirmar el estilo del botón</string>
+    <string name="instruction_button_color">Color del botón de instrucción</string>
+    <string name="instruction_button_text_color">Color de texto del botón de instrucción</string>
+    <string name="instruction_preview_background_color">Color de fondo de vista previa de instrucciones</string>
+    <string name="id_capture_border">ID del borde de captura</string>
+    <string name="show_capture_label">Mostrar etiqueta de captura</string>
+    <string name="no">No</string>//
+    <string name="yes">Sí</string>
+    <string name="enter_capture_label">Ingrese la etiqueta de captura</string>
+    <string name="default_orientation">Orientación por defecto</string>
+    <string name="portrait">Retrato</string>
+    <string name="landscape">Paisaje</string>
+    <string name="show_instruction_screen">Mostrar pantalla de instrucciones</string>
+    <string name="detect_hand_type">Tipo de mano</string>
+    <string name="show_title_image">Mostrar titulo de la imagen</string>
+    <string name="id_capture_title_alignment">ID alineación del título de captura</string>
+    <string name="hide_id_capture_title">Ocultar ID título de captura</string>
+    <string name="id_capture_hint_message_alignment">ID capturar la alineación en mensaje de sugerencia</string>
+    <string name="hide_id_hint_message">Ocultar ID mensaje de sugerencia</string>
+    <string name="id_capture_title_image_alignment">ID capturar la alineación de la imagen del título</string>
+    <string name="hide_id_title_image">Ocultar ID imagen del título</string>
+    <string name="id_capture_label">ID captura de identificación</string>
+    <string name="english_label">Etiqueta en inglés</string>
+    <string name="add_label">Añadir etiqueta</string>
+    <string name="save">Guardar</string>
+    <string name="reset">Reiniciar</string>
+    <string name="top">Parte superior</string>
+    <string name="center">Centrar</string>
+    <string name="bottom">Fondo</string>
+    <string name="left">Izquierda</string>
+    <string name="right">Derecho</string>
+    <string name="capture_button_color">Color del botón de captura</string>
+    <string name="enable_shadow">Habilitar sombra</string>
+
+
+    <string name="default_font_type">DEFECTO</string>
+    <string name="default_bold">DEFECTO_NEGRITA</string>
+    <string name="san_serif">SANS_SERIF</string>
+    <string name="serif">SERIF</string>
+    <string name="monospace">MONOSPACIO</string>
+
+    <string name="normal">NORMAL</string>
+    <string name="bold">NEGRITA</string>
+    <string name="italic">ITÁLICA</string>
+    <string name="bold_italic">NEGRITA CURSIVA</string>
+
+    <string name="thin">Delgada</string>
+    <string name="thick">Gruesa</string>
+
+    <string name="none">Ninguna</string>
+    <string name="title_image_1">Imagen del título 1</string>
+
+    <string name="low">Baja</string>
+    <string name="medium">Medio</string>
+    <string name="all">Todas</string>
+    <string name="zero">Cero</string>
+
+    <!-- 4F Capture-->
+    <string name="focus_threshold">Umbral de enfoque</string>
+    <string name="glare_threshold">Umbral de deslumbramiento</string>
+    <string name="no_of_finger_to_check_focus">No. de dedo para comprobar el enfoque</string>
+    <string name="index_finger_min">Dedo índice (Min)</string>
+    <string name="index_finger_max">Dedo índice (Máximo)</string>
+    <string name="middle_finger_Min">Dedo medio (Min)</string>
+    <string name="middle_finger_Max">Dedo medio (Máximo)</string>
+    <string name="ring_finger_min">Dedo anular (Min)</string>
+    <string name="ring_finger_max">Dedo anular (Max)</string>
+    <string name="baby_finger_min">Dedo meñique (Min)</string>
+    <string name="baby_finger_max">Dedo mequiñe (Max)</string>
+    <string name="save_image_width">Guardar ancho de imagen</string>
+    <string name="save_image_height">Guardar la altura de la imagen</string>
+    <string name="aggresiveness_factor">Factor de agresividad</string>
+    <string name="minimum_NFIQ_value">Valor mínimo de NFIQ</string>
+    <string name="device_timeout">Tiempo de espera del dispositivo</string>
+    <string name="image_size">Tamaño de la imagen (KB)</string>
+    <string name="select_finger">Seleccionar dedo</string>
+    <string name="clear">Claro</string>
+    <string name="clear_fp_data">Borrar datos de huellas dactilares</string>//
+    <string name="enter_finger_count">Por favor ingrese el número de dedos</string>//
+    <string name="enter_glare_percentage">Por favor ingrese el porcentaje de deslumbramiento</string>
+    //
+    <string name="enter_focus_threshold">Por favor, ingrese el umbral de enfoque</string>//
+    <string name="zoom">Enfocar</string>
+    <string name="ridge_width">Ancho de cresta</string>
+
+    <!-- Selfie Capture-->
+    <string name="face_image_type">Tipo de imagen del rostro</string>
+    <string name="face_detection_threshold">Umbral de detección de rostros</string>
+    <string name="launch_front_camera">Iniciar cámara frontal</string>
+    <string name="toggle_camera">Toggle de la cámara</string>
+    <string name="show_preview_screen">Mostrar pantalla de vista previa</string>
+    <string name="face_outline_color">Color del contorno del rostro</string>
+    <string name="detect_face_outline_color">Detectar el color del contorno del rostro</string>
+    <string name="outside_color_of_face_outLine">Color exterior del contorno del rostro</string>
+    <string name="outside_detected_color_of_face_outline">Color exterior detectado del contorno del rostro</string>
+    <string name="face_title_alignment">Alineación del título del rostro</string>
+    <string name="hide_face_title">Ocultar el título del rostro</string>
+    <string name="face_hint_message_alignment">Alineación del mensaje de sugerencia</string>
+    <string name="hide_face_hint_message">Ocultar mensaje de sugerencia del rostro</string>
+    <string name="face_hint_icon_alignment">Alineación del icono de sugerencia del rostro</string>
+    <string name="hide_face_hint_icon">Ocultar icono de sugerencia del rostro</string>
+    <string name="face_title_image_alignment">Alineación de la imagen del título del rostro</string>
+    <string name="hide_face_title_image">Ocultar la imagen del título del rostro</string>
+    <string name="show_custom_overlay">Mostrar superposición personalizada</string>
+    <string name="face_capture_label">Etiqueta de captura del rostro</string>
+    <string name="spanish_label">Etiqueta en español</string>
+    <string name="face_contours">Contornos del rostro</string>
+    <string name="title_image">Seleccione la imagen del título</string>//
+    <string name="live_face_not_detected">Cara viva no detectada.</string>
+
+    <!-- video Capture-->
+    <string name="video_recording_time">Tiempo de grabación del video (Segundo)</string>
+    <string name="text_data">Ingrese datos de texto</string>
+
+    <!-- voice Capture-->
+    <string name="voice_recording_time">Tiempo de grabación de voz (Segundo)</string>
+    <string name="enter_time">Por favor ingrese el tiempo</string>
+    <string name="voice_button_color">Color del botón de voz</string>
+    <string name="voice_background_color">Color de fondo</string>
+    <string name="voice_title_label_on_top">Etiqueta del título en la parte superior</string>
+    <string name="voice_display_position">Posición de visualización de la IU</string>
+    <string name="voice_auto_play">Auto-reproducción</string>
+    <string name="voice_text_label_color">Color de etiqueta de texto</string>
+    <string name="voice_title_label_color">Título Etiqueta Color</string>
+    <string name="voice_title_label_size">Tamaño de etiqueta de título</string>
+    <string name="voice_text_label_size">Tamaño de etiqueta de texto</string>
+    <string name="voice_counter_label_size">Tamaño de etiqueta de mostrador</string>
+    <string name="voice_recording_label">Etiqueta de grabación de voz</string>
+
+    <!-- Customize product-->
+    <string name="select_group">Selecciona grupo</string>
+    <string name="enter_group_name">Ingrese el nombre del grupo</string>
+    <string name="select_field_name">Seleccione el nombre del campo</string>
+    <string name="enter_field_name">Ingrese el nombre del campo</string>
+    <string name="select_field_value">Seleccione el valor del campo</string>
+    <string name="enter_field_value">Ingrese el valor del campo</string>
+    <string name="add">Añadir</string>
+    <string name="product_config">Configuración del producto</string>
+
+    <!-- Data Capture-->
+    <string name="manual_review_required">Revisión manual requerida</string>
+    <string name="bypass_age_validation">Validación de la edad desviada</string>
+    <string name="bypass_name_matching">Coincidencia del nombre desviado</string>
+    <string name="deduplication_required">Se requiere deduplicación</string>
+    <string name="need_immediate_response">Necesito respuesta inmediata</string>
+    <string name="unique_customer_number">Número de cliente único</string>
+    <string name="customer_name">Nombre del cliente</string>
+    <string name="service_id">ID de servicio</string>
+    <string name="customer_type">Tipo de cliente</string>
+    <string name="customer_phone">Teléfono del cliente</string>
+    <string name="customer_email">Correo electrónico del cliente</string>
+    <string name="customer_attribute">Atributo del cliente</string>
+    <string name="unique_merchant_number">Número de comerciante único</string>
+    <string name="unique_employee_number">Número de empleado único</string>
+    <string name="unique_employee_code">Código de empleado único</string>
+    <string name="old_client_customer_number">Número de cliente antiguo</string>
+    <string name="gender">Género</string>
+    <string name="address_line_1">Dirección Línea 1</string>
+    <string name="address_line_2">Dirección Línea 2</string>
+    <string name="country">País</string>
+    <string name="state">Estado</string>
+    <string name="city">Ciudad</string>
+    <string name="postal_code">Código postal</string>
+    <string name="capture_sec_id">Capturar ID secundario</string>
+
+    <!-- Document Capture-->
+    <string name="capture_front">Captura frontal</string>
+    <string name="enter_document_name">Ingrese el nombre del documento</string>
+
+    <!-- Employee Data-->
+    <string name="employee_code">Código de empleado</string>
+    <string name="employee_type">Tipo de empleado</string>
+    <string name="employee_login_id">ID del nombre de usuario del empleado</string>
+    <string name="employee_email">Correo electrónico del empleado</string>
+    <string name="employee_company_id">ID de la empresa del empleado</string>
+    <string name="employee_department">Departamento de empleados</string>
+    <string name="employee_name">Nombre de empleado</string>
+    <string name="employee_mobile_no">Teléfono de celular del empleado</string>
+    <string name="marital_status">Estado civil</string>
+    <string name="employee_country">País del empleado</string>
+    <string name="employee_address_line_1">Dirección del empleado línea 1</string>
+    <string name="employee_address_line_2">Dirección del empleado línea 2</string>
+    <string name="zip_code">Código postal</string>
+    <string name="spouse_name">Nombre del cónyuge</string>
+    <string name="number_of_children">Número de hijos</string>
+
+    <!-- Final steps-->
+    <string name="final_step">Último paso</string>
+    <string name="verify">  Verificar</string>
+    <string name="extract">  Extraer </string>
+    <string name="final_submit">  Presentación final </string>
+    <string name="clear_form_key">  Llave de forma clara </string>
+    <string name="please_wait_msg">Por favor espera...</string>
+
+    <!-- Generate OTP-->
+    <string name="enter_email_id">Ingrese ID del correo electrónico</string>
+    <string name="enter_mobile_number">Ingrese el número de celular</string>
+    <string name="select_notification_type">Seleccione el tipo de notificación</string>
+
+    <!-- Help Dialog-->
+    <string name="help">Ayuda</string>
+    <string name="okay">Aceptar</string>
+
+    <!-- Id Details-->
+    <string name="select_id_type">Seleccione tipo de ID</string>
+    <string name="select_secondary_id_type">Seleccionar tipo de identificación secundaria </string>
+    <string name="select_id_country">Seleccione ID del país </string>
+    <string name="select_secondary_id_country">Seleccionar país de identificación secundaria </string>
+    <string name="select_id_state">Seleccione ID Estado</string>//
+    <string name="enter_iso_code">Introduzca el código ISO de dos letras para el estado</string>//
+
+    <!-- POA Capture-->
+    <string name="address_1">Dirección 1</string>
+    <string name="address_2">Dirección 2</string>
+
+    <!-- Process flow-->
+    <string name="select_service">Seleccione servicio</string>
+    <string name="id_validation_and_face_Match">ID de validación y coincidencia de rostro: ID de servicio</string>
+    <string name="need_additional_features">¿Necesitas características adicionales?</string>
+    <string name="signature_capture">Capturar la firma</string>
+    <string name="document_capture">Capturar documentos</string>
+    <string name="voice_capture">Capturar voz</string>
+    <string name="fingerprint_capture">Capturar huellas dactilares</string>
+    <string name="fingerprint_capture_4F">Capturar huella dactilar (4F)</string>
+    <string name="location_capture">Ubicación/Captura de GPS</string>
+    <string name="video_capture">Capturar video</string>
+    <string name="image_snippet_OCR">Fragmento de imagen OCR</string>
+    <string name="barcode_scan">Escanear código de barras</string>
+    <string name="card_capture">Capturar tarjeta</string>
+    <string name="slant_capture">Captura de id de inclinación</string>
+    <string name="video_conference">Video conferencia</string>
+    <string name="capture_secondary_id">Capturar ID secundaria</string>
+    <string name="capture_secondary_id_back">Identificación secundaria Volver</string>
+    <string name="capture_secondary_id_front">Identificación secundaria delantera</string>
+    <!--<string name="INITIALIZE">INITIALIZE</string>-->
+    <string name="continue_btn">Continuar</string>
+
+    <!-- Result View-->
+    <string name="done">Hecho</string>
+    <string name="download_on">Descargado en</string>
+
+    <!-- Splash screen-->
+    <string name="splash_screen">Splash Screen</string>//
+    <string name="version">Versión</string>
+
+    <!-- Snippet capture-->
+    <string name="add_field">Agregue campo</string>
+    <string name="enable_capture_button">Habilitar el botón de captura</string>
+    <string name="enable_capture_label">Ingresar la etiqueta de captura</string>
+    <string name="fields">Campos </string>
+    <string name="fields_blank_msg">El nombre del campo no debe estar en blanco</string>
+    <string name="please_add_field">Por favor agregue el campo</string>
+    <string name="snippet_result_data">Fragmento de datos de resultados</string>
+
+    <!-- Verify OTP-->
+    <string name="enter_otp">Ingresar código de verificación</string>
+
+    <!--View Pager-->
+    <string name="capture_id_front_tab">ID Oficial Frontal</string>
+    <string name="capture_id_back_tab">ID Oficial Trasera</string>
+    <string name="selfie_capture_tab">Selfie</string>
+    <string name="signature_capture_tab">Captura de firma</string>
+    <string name="document_capture_tab">Captura de documentos</string>
+    <string name="voice_capture_tab">Captura de voz</string>
+    <string name="fingerprint_capture_tab">Captura de huellas dactilares</string>
+    <string name="fingerprint_capture_4f_tab">Captura de huella dactilar (4F)</string>
+    <string name="location_capture_tab">Ubicación/Captura de GPS</string>
+    <string name="video_capture_tab">Captura de video</string>
+    <string name="image_snippet_OCR_tab">Fragmento de imagen OCR</string>
+    <string name="barcode_scan_tab">Escaneo de código de barras</string>
+    <string name="poa_capture_tab">Captura de POA</string>
+    <string name="selfie_employee_tab">Autorretrato del empleado</string>
+    <string name="selfie_customer_tab">Autorretrato del cliente</string>
+    <string name="define_product_tab">Definir producto</string>
+    <string name="card_capture_tab">Captura de tarjeta</string>
+    <string name="generate_OTP_data_tab">Generar código de verificación</string>
+    <string name="verify_OTP_data_tab">Verificar</string>
+    <string name="data_captur_tab">Captura de datos</string>
+    <string name="employee_data_tab">Datos del empleado</string>
+    <string name="slant_capture_tab">Slant ID Capture</string>
+    <string name="video_conference_tab">Video conferencia</string>
+    <string name="capture_sec_id_front_tab">Capturar ID secundario frontal</string>
+    <string name="capture_sec_id_back_tab">Capturar ID secundaria atrás</string>
+    <string name="auto_fill_tab">Autocompletar</string>
+
+    <!-- Location-->
+    <string name="location">Ubicación</string>
+    <string name="latitude">Latitud :</string>
+    <string name="longitude">Longitud :</string>
+
+    <!-- Service Id & Descriptions-->
+    <string name="idv_face_match">10 IDV + Coincidencia del rostro</string>
+    <string name="idv_only">20 IDV solamente</string>
+    <string name="idv_only_cust">25 IDV solo con registro del cliente</string>
+    <string name="idv_only_emp">30 IDV solo con registro del empleado</string>
+    <string name="idv_face_match_cust">50 IDV + Coincidencia del rostro con registro de cliente</string>
+    <string name="idv_face_match_emp">55 IDV + Coincidencia del rostro con registro de empleado</string>
+    <string name="face_match_cus">60 Coincidencia del rostro con registro de cliente</string>
+    <string name="face_match_only">65 Solo coincidencia del rostro</string>
+    <string name="customer_update_service">70 Actualización del cliente</string>
+    <string name="employee_update_service">75 Actualización del empleado</string>
+    <string name="idv_face_match_cust_enroll_77">77 IDV + Coincidencia del rostro con registro de cliente</string>
+    <string name="idv_face_match_cust_enroll_78">78 IDV + Coincidencia del rostro con registro de cliente</string>
+    <string name="idv_face_match_cust_minor">80 IDV+Face Match w/Cust Enroll</string>
+    <string name="customer_verification">100 Verificación del cliente</string>
+    <string name="customer_verification_105">105 Verificación del cliente</string>
+    <string name="idv_video_match">155 IDV + Coincidencia del video</string>
+    <string name="idv_video_match_cust">160 IDV + Coincidencia del video con registro del cliente</string>
+    <string name="idv_video_match_emp">165 IDV + Coincidencia del video con registro del empleado</string>
+    <string name="cust_enroll_biometrics">175 Registro del cliente con biometría</string>
+    <string name="emp_enroll_biometrics">180 Registro del empleado con biometría</string>
+    <string name="address_processing">200 Procesamiento de direcciones</string>
+    <string name="employee_verification">300 Verificación del empleado</string>
+    <string name="employee_verification_305">305 Verificación del empleado</string>
+    <string name="face_match_only_emp">310 Coincidencia del rostro con registro del empleado</string>
+    <string name="create_customer_override_service">320 Crear cliente (Anular)</string>
+    <string name="create_employee_override_service">330 Crear empleado (Anular)</string>
+    <string name="id_validation_face_match_primary_id">360 Validación de la identificación y coincidencia del rostro (ID principal)</string>
+    <string name="id_validation_face_match_secondary_id">361 Validación de la identificación y coincidencia del rostros (ID secundario)</string>
+    <string name="otp_generation">400 Generación del código de verificación</string>
+    <string name="token_generation">401 Generación del token</string>
+    <string name="otp_verification">410 Validar código de verificación</string>
+    <string name="customer_search">186 Búsqueda de clientes</string>
+    <string name="employee_search">191 Búsqueda de empleados</string>
+    <string name="video_conf_match">500 videoconferencia</string>
+    <string name="idv_video_conf_match">505 IDV + Videoconferencia</string>
+    <string name="idv_video_conf_cust_match">510 IDV + Videoconferencia Match + Inscripción de clientes</string>
+    <string name="idv_video_conf_emp_match">515 IDV + Videoconferencia + Inscripción de empleados</string>
+    <string name="identify_cus_with_biometrics">185 Identificar al cliente con biometría</string>
+    <string name="identify_emp_with_biometrics">190 Identificar empleados con biometría</string>
+    <string name="auto_fill_service">620 Autocompletar</string>
+    <string name="offline_face_service">660 Offline Live Face</string>
+
+    <string name="idv_face_match_des">Capturar documento(s) de identificación, validarlos y extraer datos de él. Además, capture un autoretrato y compárelo con la foto de la identificación.</string>
+    <string name="idv_only_des">Capturar documento(s) de identificación, validarlos y extraer datos de él.</string>
+    <string name="idv_only_cust_des">Capturar documento(s) de identificación para un cliente, validarlos y extraer datos de él. Además, se captura cualquier biométrico para inscribir al cliente.</string>
+    <string name="idv_only_emp_des">Capturar documentos de identificación para un empleado, validarlos y extraer datos de él. Además, se captura cualquier biométrico para registrar al cliente.</string>
+    <string name="idv_face_match_cust_des">Capturar documentos de identificación, validarlos y extraer datos de él. Además, se captura un autorretrato del cliente y se compara con la foto en la identificación, luego se registra toda la biométrica capturada con el cliente si la coincidencia es positiva.</string>
+    <string name="idv_face_match_emp_des">Capturar documentos de identificación, validarlos y extraer datos de él. Además, capture un autorretrato del empleado y compárelo con la foto en la identificación, luego registre toda la biométrica capturada con el empleado si la coincidencia es positiva.</string>
+    <string name="face_match_cus_des">Capturar documentos de identificación, además se captura un autorretrato del cliente y se compara con la foto en la identificación. Una vez verificado el cliente se registra.</string>
+    <string name="face_match_only_des">Capturar documentos de identificación, además se captura un autorretrato del cliente y se compara con la foto en la identificación.</string>
+    <string name="customer_update_service_des">Capturar cualquier información de un nuevo/actualizado cliente para actualizar el registro de cliente inscrito previamente.</string>
+    <string name="employee_update_service_des">Capturar cualquier nuevo/actualizado dato del empleado para actualizar el registro del empleado inscrito previamente.</string>
+    <string name="idv_face_match_cust_enroll_77_des">Capturar documentos de identificación, validarlos y extraer datos de él. Además, se captura un autorretrato del cliente y se compara con la foto en la identificación, luego se registra toda la biométrica capturada con el cliente si la coincidencia es positiva.</string>
+    <string name="idv_face_match_cust_enroll_78_des">Capturar documentos de identificación, validarlos y extraer datos de él. Además, se captura un autorretrato del cliente y se compara con la foto en la identificación, luego se registra toda la biométrica capturada con el cliente si la coincidencia es positiva.</string>
+    <string name="idv_face_match_cust_minor_des">Capturar documentos de ID, validar ese ID y extraer datos de él. Además, capture una selfie del cliente y compárela con la foto en la identificación, luego inscriba toda la biométrica capturada con el cliente si la coincidencia es positiva.</string>
+    <string name="customer_verification_des">Capturar los datos biométricos para verificar contra un cliente previamente inscrito.</string>
+    <string name="idv_video_match_des">Capturar documentos de identificación, se validan y se extraen datos de él. Además, capturar un video y se utiliza para hacer coincidir el rostro con la identificación.</string>
+    <string name="idv_video_match_cust_des">Capturar documentos de identificación para un cliente, se validan y se extraen datos de él. Además, capturar un video y se utiliza para hacer coincidir el rostro con la identificación, luego se registran todos los datos biométricos capturados con el cliente.</string>
+    <string name="idv_video_match_emp_des">Capturar documentos de identificación para un empleado, se validan y se extraen datos de él. Además, se captura un video y se utiliza para hacer coincidir el rostro con la identificación, luego inscriba todos los datos biométricos capturados con el empleado.</string>
+    <string name="cust_enroll_biometrics_des">Capturar datos del clientes y datos biométricos, y registrelos en la base de datos del clientes. No se capturan documentos de identificación.</string>
+    <string name="emp_enroll_biometrics_des">Capturar datos del empleado y datos biométricos, y se registran en la base de datos del empleados. No se capturan documentos de identidad.</string>
+    <string name="address_processing_des">Coincidencia de la dirección / Verificación</string>
+    <string name="employee_verification_des">Capturar datos biométricos para verificar contra un empleado previamente inscrito.</string>
+    <string name="face_match_only_emp_des">Capturar documento(s) de identificación, además se captura un autorretrato del empleado y se compara con la foto en la identificación. Una vez verificado el empleado se registra.</string>
+    <string name="create_customer_override_service_des">Crear cliente utilizando la función de anulación del agente, se requiere la verificación del empleado para la anulación.</string>
+    <string name="create_employee_override_service_des">Crear empleado usando la función de reemplazo de agente, se requiere la verificación del empleado para el reemplazo.</string>
+    <string name="id_validation_face_match_primary_id_des">Capturar un documento de identificación primario, se valida y se extraen los datos de él. Además, se captura un autorretrato y se compara con la foto de la identificación.</string>
+    <string name="id_validation_face_match_secondary_id_des">Capturar un documento de identificación primario, se valida y se extraen los datos de él. Además, se captura un autorretrato y se compara con la foto de la identificación.</string>
+    <string name="otp_generation_des">Generar un PIN único para utilizalo en la verificación.</string>
+    <string name="token_generation_des">Generación del número del Token</string>
+    <string name="otp_verification_des">Captura y verificación de un PIN único generado previamente.</string>
+    <string name="customer_search_des">Búsqueda de clientes utilizando información no biométrica</string>
+    <string name="employee_search_des">Búsqueda de empleados utilizando información no biométrica</string>
+    <string name="idv_video_conf_match_des">Capturar documentos de identificación, validar la identificación y extraer datos de ella. Además, inicie una sesión de videoconferencia con un operador de back office que se grabará con fines de auditoría. Se extraerá una imagen fotográfica de la videoconferencia y se usará para hacer coincidir la cara con la ID.</string>
+    <string name="video_conf_match_des">Inicie una sesión de videoconferencia con un operador de back office que se grabará con fines de auditoría.</string>
+    <string name="idv_video_conf_cust_match_des">Capturar documentos de identificación para un cliente, validar la identificación y extraer datos de ella. Además, inicie una sesión de videoconferencia con un operador de back office que se grabará con fines de auditoría. Se extraerá una imagen fotográfica de la videoconferencia y se utilizará para hacer coincidir la cara con la ID, luego se inscribirán todos los datos biométricos capturados con el cliente."</string>
+    <string name="idv_video_conf_emp_match_des">Capturar documentos de identificación para un empleado, validar la identificación y extraer datos de ella. Además, inicie una sesión de videoconferencia con un operador de back office que se grabará con fines de auditoría. Se extraerá una imagen fotográfica de la videoconferencia y se usará para hacer coincidir la cara con la ID, luego se inscribirá toda la biometría capturada con el empleado.</string>
+    <string name="identify_cus_with_biometrics_des">Capture datos biométricos para un cliente (cara, huella digital, voz o iris) y busque en la base de datos del cliente para ver si ya está inscrito.</string>
+    <string name="identify_emp_with_biometrics_des">Capture datos biométricos para un Empleada (cara, huella digital, voz o iris) y busque en la base de datos del Empleada para ver si ya está inscrito.</string>
+    <string name="auto_fill_service_des">Seleccione el tipo de identificación y extraiga los datos sin conexión</string>
+    <string name="offline_face_service_des">Offline Live Face</string>
+
+    <!-- Id Country-->
+    <string name="AFG">Afghanistan</string>
+    <string name="ALA">Åland Islands</string>
+    <string name="ALB">Albania</string>
+    <string name="DZA">Algeria</string>
+    <string name="ALL">ALL</string>
+    <string name="ASM">American Samoa</string>
+    <string name="AND">Andorra</string>
+    <string name="AGO">Angola</string>
+    <string name="AIA">Anguilla</string>
+    <string name="ATA">Antarctica</string>
+    <string name="ATG">Antigua and Barbuda</string>
+    <string name="ARG">Argentina</string>
+    <string name="ARM">Armenia</string>
+    <string name="ABW">Aruba</string>
+    <string name="AUS">Australia</string>
+    <string name="AUT">Austria</string>
+    <string name="AZE">Azerbaijan</string>
+    <string name="BHS">Bahamas</string>
+    <string name="BHR">Bahrain</string>
+    <string name="BGD">Bangladesh</string>
+    <string name="BRB">Barbados</string>
+    <string name="BLR">Belarus</string>
+    <string name="BEL">Belgium</string>
+    <string name="BLZ">Belize</string>
+    <string name="BEN">Benin</string>
+    <string name="BMU">Bermuda</string>
+    <string name="BTN">Bhutan</string>
+    <string name="BOL">Bolivia, Plurinational State of</string>
+    <string name="BIH">Bosnia and Herzegovina</string>
+    <string name="BWA">Botswana</string>
+    <string name="BVT">Bouvet Island</string>
+    <string name="BRA">Brazil</string>
+    <string name="IOT">British Indian Ocean Territory</string>
+    <string name="BRN">Brunei Darussalam</string>
+    <string name="BGR">Bulgaria</string>
+    <string name="BFA">Burkina Faso FASO</string>
+    <string name="BDI">Burundi</string>
+    <string name="KHM">Cambodia</string>
+    <string name="CMR">Cameroon</string>
+    <string name="CAN">Canada</string>
+    <string name="CPV">Cabo Verde</string>
+    <string name="BES">Bonaire, Sint Eustatius and Saba</string>
+    <string name="CYM">Cayman Islands</string>
+    <string name="CAF">Central African Republic</string>
+    <string name="TCD">Chad</string>
+    <string name="CHL">Chile</string>
+    <string name="CHN">China</string>
+    <string name="CXR">Christmas Island</string>
+    <string name="CCK">Cocos (Keeling) Islands</string>
+    <string name="COL">Colombia</string>
+    <string name="COM">Comoros</string>
+    <string name="COG">Congo</string>
+    <string name="COD">Congo, the Democratic Republic of the</string>
+    <string name="COK">Cook Islands</string>
+    <string name="CRI">Costa Rica</string>
+    <string name="CIV">Côte d\'Ivoire</string>
+    <string name="HRV">Croatia</string>
+    <string name="CUB">Cuba</string>
+    <string name="CUW">Curaçao</string>
+    <string name="CYP">Cyprus</string>
+    <string name="CZE">Czech Republic</string>
+    <string name="DNK">Denmark</string>
+    <string name="DJI">Djibouti</string>
+    <string name="DMA">Dominica</string>
+    <string name="DOM">Dominican Republic</string>
+    <string name="TMP">EAST TIMOR</string>
+    <string name="ECU">Ecuador</string>
+    <string name="EGY">Egypt</string>
+    <string name="SLV">El Salvador</string>
+    <string name="GNQ">Equatorial Guinea</string>
+    <string name="ERI">Eritrea</string>
+    <string name="EST">Estonia</string>
+    <string name="ETH">Ethiopia</string>
+    <string name="FLK">Falkland Islands (Malvinas)</string>
+    <string name="FRO">Faroe Islands</string>
+    <string name="FJI">Fiji</string>
+    <string name="FIN">Finland</string>
+    <string name="FRA">France</string>
+    <string name="FXX">FRANCE METROPOLITAN</string>
+    <string name="GUF">French Guiana</string>
+    <string name="PYF">French Polynesia</string>
+    <string name="ATF">French Southern Territories</string>
+    <string name="GAB">Gabon</string>
+    <string name="GMB">Gambia</string>
+    <string name="GEO">Georgia</string>
+    <string name="DEU">Germany</string>
+    <string name="GHA">Ghana</string>
+    <string name="GIB">Gibraltar</string>
+    <string name="GRC">Greece</string>
+    <string name="GRL">Greenland</string>
+    <string name="GRD">Grenada</string>
+    <string name="GLP">Guadeloupe</string>
+    <string name="GUM">Guam</string>
+    <string name="GTM">Guatemala</string>
+    <string name="GGY">Guernsey</string>
+    <string name="GIN">Guinea</string>
+    <string name="GNB">Guinea-Bissau</string>
+    <string name="GUY">Guyana</string>
+    <string name="HTI">Haiti</string>
+    <string name="HMD">Heard Island and McDonald Islands</string>
+    <string name="VAT">Holy See (Vatican City State)</string>
+    <string name="HND">Honduras</string>
+    <string name="HKG">Hong Kong</string>
+    <string name="HUN">Hungary</string>
+    <string name="ISL">Iceland</string>
+    <string name="IND">India</string>
+    <string name="IDN">Indonesia</string>
+    <string name="IRN">Iran, Islamic Republic of</string>
+    <string name="IRQ">Iraq</string>
+    <string name="IRL">Ireland</string>
+    <string name="IMN">Isle of Man</string>
+    <string name="ISR">Israel</string>
+    <string name="ITA">Italy</string>
+    <string name="JAM">Jamaica</string>
+    <string name="JPN">Japan</string>
+    <string name="JEY">Jersey</string>
+    <string name="JOR">Jordan</string>
+    <string name="KAZ">Kazakhstan</string>
+    <string name="KEN">Kenya</string>
+    <string name="KIR">Kiribati</string>
+    <string name="PRK">Korea, Democratic People\'s Republic of</string>
+    <string name="KOR">Korea, Republic of</string>
+    <string name="RKS">KOSOVO</string>
+    <string name="KWT">Kuwait</string>
+    <string name="KGZ">Kyrgyzstan</string>
+    <string name="LAO">Lao People\'s Democratic Republic</string>
+    <string name="LVA">Latvia</string>
+    <string name="LBN">Lebanon</string>
+    <string name="LSO">Lesotho</string>
+    <string name="LBR">Liberia</string>
+    <string name="LBY">Libya</string>
+    <string name="LIE">Liechtenstein</string>
+    <string name="LTU">Lithuania</string>
+    <string name="LUX">Luxembourg</string>
+    <string name="MAC">Macao</string>
+    <string name="MKD">Macedonia, the former Yugoslav Republic of</string>
+    <string name="MDG">Madagascar</string>
+    <string name="MWI">Malawi</string>
+    <string name="MYS">Malaysia</string>
+    <string name="MDV">Maldives</string>
+    <string name="MLI">Mali</string>
+    <string name="MLT">Malta</string>
+    <string name="MHL">Marshall Islands</string>
+    <string name="MTQ">MARTINIQUE</string>
+    <string name="MRT">Mauritania</string>
+    <string name="MUS">Mauritius</string>
+    <string name="MYT">Mayotte</string>
+    <string name="MEX">Mexico</string>
+    <string name="FSM">Micronesia, Federated States of</string>
+    <string name="MDA">Moldova, Republic of</string>
+    <string name="MCO">Monaco</string>
+    <string name="MNG">Mongolia</string>
+    <string name="MNE">Montenegro</string>
+    <string name="MSR">Montserrat</string>
+    <string name="MAR">Morocco</string>
+    <string name="MOZ">Mozambique</string>
+    <string name="MMR">Myanmar</string>
+    <string name="NAM">Namibia</string>
+    <string name="NRU">Nauru</string>
+    <string name="NPL">Nepal</string>
+    <string name="NLD">Netherlands</string>
+    <string name="ANT">NETHERLANDS ANTILLES</string>
+    <string name="NCL">New Caledonia</string>
+    <string name="NZL">New Zealand</string>
+    <string name="NIC">Nicaragua</string>
+    <string name="NER">Niger</string>
+    <string name="NGA">Nigeria</string>
+    <string name="NIU">Niue</string>
+    <string name="NFK">NORFOLK ISLAND</string>
+    <string name="MNP">NORTHERN MARIANA ISLANDS</string>
+    <string name="NOR">NORWAY</string>
+    <string name="OMN">OMAN</string>
+    <string name="PAK">PAKISTAN</string>
+    <string name="PLW">PALAU</string>
+    <string name="PSE">PALESTINIAN TERRITORY</string>
+    <string name="PAN">PANAMA</string>
+    <string name="PNG">PAPUA NEW GUINEA</string>
+    <string name="PRY">PARAGUAY</string>
+    <string name="PER">PERU</string>
+    <string name="PHL">PHILIPPINES</string>
+    <string name="PCN">PITCAIRN</string>
+    <string name="POL">POLAND</string>
+    <string name="PRT">PORTUGAL</string>
+    <string name="PRI">PUERTO RICO</string>
+    <string name="QAT">QATAR</string>
+    <string name="REU">Réunion</string>
+    <string name="ROU">ROMANIA</string>
+    <string name="RUS">RUSSIAN FEDERATION</string>
+    <string name="RWA">RWANDA</string>
+    <string name="BLM">SAINT BARTHELEMY</string>
+    <string name="KNA">SAINT KITTS AND NEVIS</string>
+    <string name="LCA">SAINT LUCIA</string>
+    <string name="MAF">SAINT MARTIN</string>
+    <string name="VCT">SAINT VINCENT AND THE GRENADINES</string>
+    <string name="WSM">SAMOA</string>
+    <string name="SMR">SAN MARINO</string>
+    <string name="STP">SAO TOME AND PRINCIPE</string>
+    <string name="SAU">SAUDI ARABIA</string>
+    <string name="SEN">SENEGAL</string>
+    <string name="SRB">SERBIA</string>
+    <string name="SYC">SEYCHELLES</string>
+    <string name="SLE">SIERRA LEONE</string>
+    <string name="SGP">SINGAPORE</string>
+    <string name="SXM">SINT MAARTEN</string>
+    <string name="SVK">SLOVAKIA (Slovak Republic)</string>
+    <string name="SVN">SLOVENIA</string>
+    <string name="SLB">SOLOMON ISLANDS</string>
+    <string name="SOM">SOMALIA</string>
+    <string name="ZAF">SOUTH AFRICA</string>
+    <string name="SGS">SOUTH GEORGIA AND SOUTH S.S.</string>
+    <string name="SSD">SOUTH SUDAN</string>
+    <string name="ESP">SPAIN</string>
+    <string name="LKA">SRI LANKA</string>
+    <string name="SHN">ST. HELENA</string>
+    <string name="SPM">ST. PIERRE AND MIQUELON</string>
+    <string name="SDN">SUDAN</string>
+    <string name="SUR">SURINAME</string>
+    <string name="SJM">SVALBARD AND JAN MAYEN ISLANDS</string>
+    <string name="SWZ">SWAZILAND</string>
+    <string name="SWE">SWEDEN</string>
+    <string name="CHE">SWITZERLAND</string>
+    <string name="SYR">SYRIAN ARAB REPUBLIC</string>
+    <string name="TWN">TAIWAN PROVINCE OF CHINA</string>
+    <string name="TJK">TAJIKISTAN</string>
+    <string name="TZA">TANZANIA UNITED REPUBLIC OF</string>
+    <string name="THA">THAILAND</string>
+    <string name="TGO">TOGO</string>
+    <string name="TKL">TOKELAU</string>
+    <string name="TON">TONGA</string>
+    <string name="TTO">TRINIDAD AND TOBAGO</string>
+    <string name="TUN">TUNISIA</string>
+    <string name="TUR">TURKEY</string>
+    <string name="TKM">TURKMENISTAN</string>
+    <string name="TCA">TURKS AND CAICOS ISLANDS</string>
+    <string name="TUV">TUVALU</string>
+    <string name="UMI">U.S. MINOR ISLANDS</string>
+    <string name="UGA">UGANDA</string>
+    <string name="UKR">UKRAINE</string>
+    <string name="ARE">UNITED ARAB EMIRATES</string>
+    <string name="GBR">UNITED KINGDOM</string>
+    <string name="USA">United States of America</string>
+    <string name="URY">URUGUAY</string>
+    <string name="UZB">UZBEKISTAN</string>
+    <string name="VUT">VANUATU</string>
+    <string name="VEN">VENEZUELA</string>
+    <string name="VNM">VIET NAM</string>
+    <string name="VGB">VIRGIN ISLANDS (BRITISH)</string>
+    <string name="VIR">VIRGIN ISLANDS (U.S.)</string>
+    <string name="WLF">WALLIS AND FUTUNA ISLANDS</string>
+    <string name="ESH">WESTERN SAHARA</string>
+    <string name="YEM">YEMEN</string>
+    <string name="ZMB">ZAMBIA</string>
+    <string name="ZWE">ZIMBABWE</string>
+
+    <!-- Id Type-->
+    <string name="PP">Pasaporte</string>
+    <string name="NID">Identificación Nacional</string>
+    <string name="RID">Tarjeta de Residencia</string>
+    <string name="DL">Licencia de Conducir</string>
+    <string name="VID">VOTER_ID_CARD</string>
+    <string name="TID">TAX_ID_CARD</string>
+    <string name="WV">WORK_VISA_PERMIT</string>
+    <string name="SV">STUDENT_VISA_PERMIT</string>
+    <string name="GID">Tarjeta Militar/Policial/Gobierno</string>
+    <string name="BID">BOAT_SHIP_ID_CARD</string>
+    <string name="IDM">IDM</string>
+    <string name="UBL">UTILITY_BILL</string>
+    <string name="OTH">OTHERS</string>
+
+    <!-- Face Type-->
+    <string name="face">CARA</string>
+    <string name="processed_face">CARA_PROCESADA</string>
+    <string name="oval_face">CARA_OVALADA</string>
+
+    //QRCode Account SetUp scan_qr_code_des
+    <string name="qr_code_inst">Escanee el código QR desde la pantalla de descargas de mi eVolv para completar los detalles de su cuenta.</string>
+    <string name="qr_button_title">Escanee el código QR para completar los detalles de la cuenta</string>
+
+    <!--Custom UI Configuration-->
+    <string name="customize_ui_configuration">Configuración de la interfaz de usuario</string>
+    <string name="select_configuration">Seleccione Configuración</string>
+    <string name="id_front_capture">Captura del frente de identificación</string>
+    <string name="id_back_capture">Captura de la espalda</string>
+    <string name="snippet_capture">Captura de fragmentos</string>
+    <string name="selfie_capture">Captura autofoto</string>
+    <string name="label_value">Valor de etiqueta</string>
+
+    //VideoConference
+    <string name="conference_completed">Conferencia completada</string>
+    <string name="conference_incompleted">La conferencia está incompleta. Por favor haga clic de nuevo para volver a unirse</string>
+
+    <!--Signature-->
+    <string name="trans_signature_bg">Fondo transparente</string>
+
+    <string name="init_sdk">Iniciando servicio, por favor espere...</string>
+    <string name="request_card">Solicitar tarjeta de Fondos Propios</string>
+
+    <string name="msg2">* Identificación oficial (INE/ IFE/ Pasaporte)\n* Acceso a un correo electrónico\n* Datos de RFC y Razón Social (opcionales)</string>
+
+    <string name="msg_recomendaciones"><![CDATA[<H1><b>Recomendaciones</b></H1>
+    <br>
+    Está por iniciar el registro, a lo largo del proceso usted necesitará...
+    <br>]]>
+</string>
+
+    <string name="please_wait">Espere un momento..</string>
+    <string name="question_use_passport">¿Usar pasaporte?</string>
+
+    <string name="passport">Pasaporte</string>
+    <string name="credential">Credencial</string>
+
+    <string name="resend_voucher">Reenviar código</string>
+    <string name="msg_term_and_cond">Podes ver los Terminos y condiciones en la siguiente direccion:</string>
+
+    <string name="msg_status_push">Se guardó la configuración.</string>
+    <string name="tv_select_country">Selecciona el país de registro.</string>
+
+    <string name="error_mail_response">Correo electrónico no registrado.</string>
+
 </resources>
