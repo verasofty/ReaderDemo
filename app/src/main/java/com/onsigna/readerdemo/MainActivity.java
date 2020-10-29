@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.sf.connectors.ISwitchConnector;
 import com.sf.upos.reader.HALReaderCallback;
 import com.sf.upos.reader.IHALReader;
 import com.sf.upos.reader.ReaderMngr;
@@ -72,6 +73,16 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         setContentView(R.layout.activity_main);
         setUpView();
         actions();
+
+        setServiceURL();
+    }
+
+    private void setServiceURL() {
+        SharedPreferences prefs;
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        prefs.edit().putString(ISwitchConnector.SHARED_PREFERENCES_URL, getResources().getString(R.string.DEFAULT_URL))
+                .commit();
     }
 
     public void deviceConnected() {
