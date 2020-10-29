@@ -137,8 +137,6 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     @Override
     protected void onResume() {
         super.onResume();
-
-        startTransaction();
     }
 
     private void startTransaction() {
@@ -147,9 +145,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         request.setUser(m_user);
         request.setLatitud(gpsLocator.getLatitud());
         request.setLongitud(gpsLocator.getLongitud());
-
         request.setAmount(etMonto.getText().toString());
-
         request.setFeeAmount(m_feeAmount);
         request.setMesero(description);
         request.setReference1(description);
@@ -180,12 +176,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     }
 
     private void actions() {
-        btnSale.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        btnSale.setOnClickListener(view -> startTransaction());
     }
 
 
