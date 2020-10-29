@@ -36,8 +36,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     private final String TAG = SaleActivity.class.getSimpleName();
 
-    private String m_amount = EMPTY_STRING;
-    private String m_feeAmount = EMPTY_STRING;
+    private String m_amount = "0";
+    private String m_feeAmount = "0";
     private String description = EMPTY_STRING;
     private double dTotal = 0;
     private TransactionData m_swipedCardTD;
@@ -134,13 +134,22 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         return myString;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        startTransaction();
+    }
+
     private void startTransaction() {
         Log.d(TAG, "== startTransaction() ==");
         TransactionDataRequest request = new TransactionDataRequest();
         request.setUser(m_user);
         request.setLatitud(gpsLocator.getLatitud());
         request.setLongitud(gpsLocator.getLongitud());
-        request.setAmount(Double.toString(dTotal));
+
+        request.setAmount(etMonto.getText().toString());
+
         request.setFeeAmount(m_feeAmount);
         request.setMesero(description);
         request.setReference1(description);
@@ -171,7 +180,12 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     }
 
     private void actions() {
+        btnSale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
     }
 
 
@@ -198,6 +212,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         }
 
     }
+
 
     @Override
     public void onFinishedTransaction(final TransactionDataResult result) {
