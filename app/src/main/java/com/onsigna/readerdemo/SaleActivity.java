@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +39,14 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     private final String TAG = SaleActivity.class.getSimpleName();
 
+
+    private String GREEN_COLOR = "#008000";
+    private String RED_COLOR = "#FF0000";
+    private String WHITE_COLOR = "#FFFFFF";
+
+    private final int CODE_ERROR = 1;
+    private final int CODE_SUCESSFUL = 2;
+    private final int CODE_NORMAL = 0;
     private String m_amount = "0";
     private String m_feeAmount = "0";
     private String description = EMPTY_STRING;
@@ -76,10 +87,10 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private void changeDialog(String description) {
 
         if (description.equals("SendTransactionOnline")) {
-            //tvData.setText(getResources().getString(R.string.dlg_send_transaction));
-            tvData.append(getResources().getString(R.string.dlg_send_transaction));
+            writeConsole(CODE_NORMAL, getResources().getString(R.string.dlg_send_transaction));
+
         } else if (description.equals(getResources().getString(R.string.dlg_card_chip)) || description.equals(getResources().getString(R.string.dlg_card_swipe))) {
-            tvData.append(description);
+            writeConsole(CODE_NORMAL, description);
 
         }
 
@@ -142,7 +153,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private void startTransaction() {
         Log.d(TAG, "== startTransaction() ==");
         TransactionDataRequest request = new TransactionDataRequest();
-        request.setUser(m_user);
+        request.setUser("BACDFC5B-1");
         request.setLatitud(gpsLocator.getLatitud());
         request.setLongitud(gpsLocator.getLongitud());
         request.setAmount(etMonto.getText().toString());
@@ -161,6 +172,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         btnSale = (Button) findViewById(R.id.btnSale);
         tvData = (TextView) findViewById(R.id.tvData);
         etMonto = (EditText) findViewById(R.id.etMonto);
+        tvData.setText(EMPTY_STRING);
+        tvData.setMovementMethod(new ScrollingMovementMethod());
 
         gpsLocator = new GPSLocator(this);
         gpsLocator.writeSignalGPS(this);
@@ -171,17 +184,28 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     }
 
     private void setData(TransactionDataResult result) {
-        tvData.append(result.getCardHolderName());
-        tvData.append(result.getExpirationDate() + "\n" + result.getARQC());
+        Log.d(TAG, "== setData() ==");
+
+        nextLine();
+        writeConsole(CODE_SUCESSFUL, "== setData() ==");
+        writeConsole(CODE_SUCESSFUL, "AuthNumber -> " + result.getAuthorizationNumber());
+        writeConsole(CODE_SUCESSFUL, "Transacción aprobada!");
+        writeConsole(CODE_SUCESSFUL, "AuthNumber -> " + result.getAuthorizationNumber());
+        writeConsole(CODE_SUCESSFUL, "tlv -> " + result.getTlvResponse());
+
     }
 
     private void actions() {
         btnSale.setOnClickListener(view -> startTransaction());
     }
 
-
     private void processError(TransactionDataResult result) {
         Log.d(TAG, "== processError() ==");
+
+        nextLine();
+        writeConsole(CODE_ERROR, "== processError() ==");
+        writeConsole(CODE_ERROR, "ResponseCode ->" + result.getResponseCode());
+
         Log.d(TAG, "tdr.responseCode --> " + String.valueOf(result.getResponseCode()));
 
         switch (result.getResponseCode()) {
@@ -189,7 +213,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
             case TransactionDataResult.RESP_CODE_UNPLUGGED_READER:
                 //dismiss();
                 //activity.auxiliar.alertMessageError(result.getResponseCodeDescription());
-                tvData.append(result.getResponseCodeDescription());
+
+                writeConsole(CODE_ERROR, "ResponseCodeDescription() ->" + result.getResponseCodeDescription());
                 break;
 
             case TransactionDataResult.RESP_CODE_CONEXION_ERROR:
@@ -198,11 +223,13 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
             default:
                 //dismiss();
                 //activity.auxiliar.alertMessageError(result.getResponseCodeDescription());
-                tvData.append(result.getResponseCodeDescription());
+                writeConsole(CODE_ERROR, "ResponseCodeDescription() ->" + result.getResponseCodeDescription());
 
         }
 
     }
+
+
 
 
     @Override
@@ -344,5 +371,34 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
             }
         }
         //}
+    }
+
+    private String getColoredSpanned(String text, String color) {
+        String input = "<font color=" + color + ">" + text + "</font>";
+        return input;
+    }
+
+    private void nextLine() {
+        tvData.append("\n");
+    }
+
+    private void writeConsole(int code, String message) {
+
+        nextLine();
+        switch (code){
+            case CODE_ERROR:
+                tvData.append(Html.fromHtml(getColoredSpanned(message,RED_COLOR)));
+                break;
+            case CODE_SUCESSFUL:
+                tvData.append(Html.fromHtml(getColoredSpanned(message,GREEN_COLOR)));
+                break;
+            case CODE_NORMAL:
+                tvData.append(Html.fromHtml(getColoredSpanned(message,WHITE_COLOR)));
+                break;
+            default:
+                tvData.append(Html.fromHtml(getColoredSpanned(message,WHITE_COLOR)));
+                throw new IllegalStateException("Unexpected value: " + code);
+        }
+
     }
 }
