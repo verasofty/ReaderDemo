@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
             @Override
             public void onClick(View view) {
                 if ( reader == null || !bConnected ){
+                    Toast.makeText(getBaseContext(), "Conecte primero el lector a usar", Toast.LENGTH_LONG).show();
                     return ;
                 }
 
@@ -140,10 +141,16 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
                 deviceArray = new ArrayList<>();
                 adaptador = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, deviceArrayCustom);
                 lista.setAdapter(adaptador);
-                Toast.makeText(getBaseContext(), getResources().getString(R.string.message_refresh_devices), Toast.LENGTH_SHORT).show();
-                reader.stopScan(MainActivity.this, MainActivity.this);
-                reader.scan(MainActivity.this, MainActivity.this);
-                pullToRefresh.setRefreshing(false);
+
+                if (reader != null) {
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.message_refresh_devices), Toast.LENGTH_SHORT).show();
+                    reader.stopScan(MainActivity.this, MainActivity.this);
+                    reader.scan(MainActivity.this, MainActivity.this);
+                    pullToRefresh.setRefreshing(false);
+                } else {
+                    pullToRefresh.setRefreshing(false);
+                    initConnectBT();
+                }
             }
         });
 
@@ -156,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
                 Log.d(TAG, "Dispositivo seleccionado  name==> " + name);
                 Log.d(TAG, "Dispositivo seleccionado  nameArray==> " + nameArray);
                 saveIdDevice(null, nameArray);
+                Toast.makeText(getBaseContext(), "Intentando conectar con " + name, Toast.LENGTH_LONG).show();
                 bStopConnected = true;
             }
         });
@@ -239,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
 
     protected void activeBluetooth() {
         Log.d(TAG, "== activeBluetooth() ==");
-        final BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
+        /*final BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
         builder.setMessage(getResources().getString(R.string.dlg_message_bluetooth_off))
@@ -249,7 +257,9 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
                     }
                 });
         builder.create();
-        builder.show();
+        builder.show();*/
+
+        Toast.makeText(getBaseContext(),"Active el bluetooth", Toast.LENGTH_LONG).show();
 
     }
 
