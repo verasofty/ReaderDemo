@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
     private void setUpView() {
         lista = (ListView) findViewById(R.id.list_device);
         btnConnect = (Button) findViewById(R.id.btnConnect);
+        btnConnect.setText("Conecta con el lector");
+        btnConnect.setTextColor(Color.WHITE);
         btnNext = (Button) findViewById(R.id.btnNext);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
     }

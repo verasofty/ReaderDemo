@@ -94,6 +94,9 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
             nextLine();
             writeConsole(CODE_NORMAL, description);
 
+        } else {
+            nextLine();
+            writeConsole(CODE_NORMAL, description);
         }
 
     }
@@ -357,7 +360,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     @Override
     public void updateDialog(String text) {
-        Log.d(TAG, "== onBatteryInfo() ==");
+        Log.d(TAG, "== updateDialog() ==");
         Log.d(TAG, "text ==>" + text);
         changeDialog(text);
     }
