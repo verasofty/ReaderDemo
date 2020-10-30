@@ -193,9 +193,9 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
         nextLine();
         writeConsole(CODE_SUCESSFUL, "== setData() ==");
-        writeConsole(CODE_SUCESSFUL, "AuthNumber -> " + result.getAuthorizationNumber());
         writeConsole(CODE_SUCESSFUL, "Transacción aprobada!");
         writeConsole(CODE_SUCESSFUL, "AuthNumber -> " + result.getAuthorizationNumber());
+        writeConsole(CODE_SUCESSFUL, "Tarjeta -> " + result.getMaskedPAN());
         writeConsole(CODE_SUCESSFUL, "tlv -> " + result.getTlvResponse());
 
     }
@@ -209,6 +209,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
         nextLine();
         writeConsole(CODE_ERROR, "== processError() ==");
+        Log.d(TAG, "result? -> " + result.getRawPAN());
         writeConsole(CODE_ERROR, "ResponseCode ->" + result.getResponseCode());
 
         Log.d(TAG, "tdr.responseCode --> " + String.valueOf(result.getResponseCode()));
@@ -338,7 +339,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         writeConsole(CODE_ERROR, "== Lector desconectado ==");
         Log.d(TAG, "bStopConnected ==" + mainActivity.bStopConnected);
         if (mainActivity.bStopConnected) {
-            mainActivity.reader.connect(SaleActivity.this, this);
+            //mainActivity.reader.connect(SaleActivity.this, this);
         }
     }
 

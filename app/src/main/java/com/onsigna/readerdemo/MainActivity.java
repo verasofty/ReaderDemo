@@ -247,17 +247,6 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
 
     protected void activeBluetooth() {
         Log.d(TAG, "== activeBluetooth() ==");
-        /*final BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
-        builder.setMessage(getResources().getString(R.string.dlg_message_bluetooth_off))
-                .setPositiveButton(getResources().getString(R.string.btn_bluetooth_on), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        bluetooth.enable();
-                    }
-                });
-        builder.create();
-        builder.show();*/
 
         Toast.makeText(getBaseContext(),"Active el bluetooth", Toast.LENGTH_LONG).show();
 
