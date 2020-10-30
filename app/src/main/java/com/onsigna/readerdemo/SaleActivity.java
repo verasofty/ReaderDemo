@@ -87,9 +87,11 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private void changeDialog(String description) {
 
         if (description.equals("SendTransactionOnline")) {
+            nextLine();
             writeConsole(CODE_NORMAL, getResources().getString(R.string.dlg_send_transaction));
 
         } else if (description.equals(getResources().getString(R.string.dlg_card_chip)) || description.equals(getResources().getString(R.string.dlg_card_swipe))) {
+            nextLine();
             writeConsole(CODE_NORMAL, description);
 
         }
@@ -237,7 +239,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         {
             Log.d(TAG, "== onFinishedTransaction() ==");
             Log.d(TAG, "<-- responseCode : " + result.getResponseCode());
-            Log.d(TAG, "<-- result : " + result.toString());
+            Log.d(TAG, "<-- result : " + result.getRawPAN());
             Log.d(TAG, "<-- getActivity()  : " + this);
         }
         if (this != null) {
@@ -320,6 +322,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     @Override
     public void onReaderConnected() {
         Log.d(TAG, "== onReaderConnected() ==");
+        nextLine();
+        writeConsole(CODE_SUCESSFUL, "== Lector conectado ==");
     }
 
     @Override
@@ -327,7 +331,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     {
         Log.d(TAG, " == onReaderNotConnected ()==");
         mainActivity.bConnected = false;
-
+        nextLine();
+        writeConsole(CODE_ERROR, "== Lector desconectado ==");
         Log.d(TAG, "bStopConnected ==" + mainActivity.bStopConnected);
         if (mainActivity.bStopConnected) {
             mainActivity.reader.connect(SaleActivity.this, this);
