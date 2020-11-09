@@ -5,6 +5,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
+
         applicationId "com.onsigna.readerdemo"
         minSdkVersion 23
         targetSdkVersion 29

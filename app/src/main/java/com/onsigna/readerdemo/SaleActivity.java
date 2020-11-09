@@ -42,7 +42,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     private String GREEN_COLOR = "#008000";
     private String RED_COLOR = "#FF0000";
-    private String WHITE_COLOR = "#FFFFFF";
+    private String WHITE_COLOR = "#000000";
 
     private final int CODE_ERROR = 1;
     private final int CODE_SUCESSFUL = 2;
@@ -235,9 +235,6 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     }
 
-
-
-
     @Override
     public void onFinishedTransaction(final TransactionDataResult result) {
         {
@@ -388,26 +385,34 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     }
 
     private void nextLine() {
-        tvData.append("\n");
+
+        this.runOnUiThread(() ->
+                tvData.append("\n")
+        );
+
     }
 
     private void writeConsole(int code, String message) {
 
         nextLine();
-        switch (code){
-            case CODE_ERROR:
-                tvData.append(Html.fromHtml(getColoredSpanned(message,RED_COLOR)));
-                break;
-            case CODE_SUCESSFUL:
-                tvData.append(Html.fromHtml(getColoredSpanned(message,GREEN_COLOR)));
-                break;
-            case CODE_NORMAL:
-                tvData.append(Html.fromHtml(getColoredSpanned(message,WHITE_COLOR)));
-                break;
-            default:
-                tvData.append(Html.fromHtml(getColoredSpanned(message,WHITE_COLOR)));
-                throw new IllegalStateException("Unexpected value: " + code);
-        }
+
+       this.runOnUiThread(() -> {
+           switch (code){
+               case CODE_ERROR:
+                   tvData.append(Html.fromHtml(getColoredSpanned(message,RED_COLOR)));
+                   break;
+               case CODE_SUCESSFUL:
+                   tvData.append(Html.fromHtml(getColoredSpanned(message,GREEN_COLOR)));
+                   break;
+               case CODE_NORMAL:
+                   tvData.append(Html.fromHtml(getColoredSpanned(message,WHITE_COLOR)));
+                   break;
+               default:
+                   tvData.append(Html.fromHtml(getColoredSpanned(message,WHITE_COLOR)));
+                   throw new IllegalStateException("Unexpected value: " + code);
+           }
+       });
+
 
     }
 }
