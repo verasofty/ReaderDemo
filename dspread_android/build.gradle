@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('dspread_android_sdk_2.7.8.jar'))
