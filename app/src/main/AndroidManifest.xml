@@ -65,7 +65,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SaleActivity"></activity>
+        <activity android:name=".Movements"></activity>
+        <activity android:name=".SaleActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

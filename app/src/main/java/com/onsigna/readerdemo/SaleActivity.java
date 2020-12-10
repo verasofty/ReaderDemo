@@ -2,10 +2,7 @@ package com.onsigna.readerdemo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
@@ -15,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.sf.upos.reader.GenericReader;
 import com.sf.upos.reader.HALReaderCallback;
 import com.sf.upos.reader.StatusReader;
 import com.sfmex.upos.reader.TransactionData;
@@ -25,9 +21,6 @@ import com.sfmex.upos.reader.TransactionDataResult;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Map;
-
-import sfsystems.mobile.messaging.MobileResponse;
-import sfsystems.mobile.messaging.PrintingInfo;
 
 import static com.onsigna.readerdemo.MainActivity.DESCRIPTION;
 import static com.onsigna.readerdemo.MainActivity.MONTO;
@@ -64,6 +57,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private DBHelper dbHelper;
 
     private Button btnSale;
+    private Button btnMovements;
     private TextView tvData;
     private EditText etMonto;
 
@@ -175,6 +169,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     private void setUpView () {
         btnSale = (Button) findViewById(R.id.btnSale);
+        btnMovements =  (Button) findViewById(R.id.btnMovements);
         tvData = (TextView) findViewById(R.id.tvData);
         etMonto = (EditText) findViewById(R.id.etMonto);
         tvData.setText(EMPTY_STRING);
@@ -202,6 +197,17 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     private void actions() {
         btnSale.setOnClickListener(view -> startTransaction());
+
+        btnMovements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navigate();
+            }
+        });
+    }
+
+    private void navigate() {
+        startActivity(new Intent(this, Movements.class));
     }
 
     private void processError(TransactionDataResult result) {
@@ -412,7 +418,6 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
                    throw new IllegalStateException("Unexpected value: " + code);
            }
        });
-
 
     }
 }

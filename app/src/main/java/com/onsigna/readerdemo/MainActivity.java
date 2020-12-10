@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         bConnected = false;
     }
 
-
     private void setUpView() {
         lista = (ListView) findViewById(R.id.list_device);
         btnConnect = (Button) findViewById(R.id.btnConnect);
@@ -111,17 +110,15 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
 
     private void actions() {
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ( reader == null || !bConnected ){
-                    Toast.makeText(getBaseContext(), "Conecte primero el lector a usar", Toast.LENGTH_LONG).show();
-                    return ;
-                }
-
-                Intent intent = new Intent(MainActivity.this, SaleActivity.class);
-                startActivity(intent);
+        btnNext.setOnClickListener(view -> {
+            if ( reader == null || !bConnected ){
+                //Toast.makeText(getBaseContext(), "Conecte primero el lector a usar", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this, Movements.class));
+                return ;
             }
+
+            Intent intent = new Intent(MainActivity.this, SaleActivity.class);
+            startActivity(intent);
         });
 
         btnConnect.setOnClickListener(new View.OnClickListener() {
@@ -172,14 +169,22 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
 
     private void initConnectBT() {
         if (verifyStateBluetooth()) {
-                initializesPermission();
-                initReader();
-                connectBT();
-                //PosScanDeviceDialog.display(getFragmentManager(), this, new Bundle());
-                return;
+            initializesPermission();
+            initReader();
+            //connectBT();
+            forceConnect();
+            //PosScanDeviceDialog.display(getFragmentManager(), this, new Bundle());
+            return;
         } else {
             activeBluetooth();
         }
+    }
+
+    private void forceConnect() {
+        String device = "MPOS9090600124|0C:FE:5D:2E:0B:71";
+        saveIdDevice(null, device);
+        Toast.makeText(getBaseContext(), "Intentando conectar con " + device, Toast.LENGTH_LONG).show();
+        bStopConnected = true;
     }
 
     private void connectBT() {
@@ -197,6 +202,8 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
     }
 
     private void initReader() {
+        Log.d(TAG, "== initReader() ==");
+
         if (reader == null) {
             Log.d(TAG, "reader ==> init---");
             reader = ReaderMngr.getReader(ReaderMngr.HW_DSPREAD_QPOS);
@@ -207,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         Log.d(TAG, "== saveIdDevice () ==");
         MainActivity.this.sharedPreferences.edit().putString(DEVICE_ID, nameDevice).commit();
         // dialog.dismiss();
-        reader.stopScan(MainActivity.this, this);
+        //reader.stopScan(MainActivity.this, this);
         reader.connect(MainActivity.this, this);
         //visibleMenuDeviceConnected(true);
         connectedListSync = true;

@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('dspread_android_pos_sdk_2.8.8.jar'))
