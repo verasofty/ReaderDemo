@@ -16,4 +16,13 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <color name="black">#000000</color>
+
+    <style name="BtnGreenGeneral">
+        <item name="android:background">@drawable/animation_btn_general_green</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">36dp</item>
+    </style>
 </resources>

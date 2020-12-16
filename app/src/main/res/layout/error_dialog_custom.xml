@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@null">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_notification"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_error"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_message_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="24dp"
+                android:gravity="center"
+                android:text="Error!!!"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/btn_dismiss"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_notification" />
+
+            <Button
+                android:id="@+id/btn_dismiss"
+                style="@style/BtnGreenGeneral"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:text="Aceptar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

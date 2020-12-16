@@ -25,6 +25,7 @@ import java.util.Map;
 import static com.onsigna.readerdemo.MainActivity.DESCRIPTION;
 import static com.onsigna.readerdemo.MainActivity.MONTO;
 import static com.onsigna.readerdemo.MainActivity.PROPINA;
+import static com.onsigna.readerdemo.utils.POSSystem.*;
 import static com.sf.utils.StringUtils.ZERO;
 import static com.sfmex.utils.StringUtils.EMPTY_STRING;
 
@@ -243,32 +244,62 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     @Override
     public void onFinishedTransaction(final TransactionDataResult result) {
+        Log.d(TAG, "== onFinishedTransaction() ==");
+        Log.d(TAG, "<-- responseCode : " + result.getResponseCode());
+        Log.d(TAG, "<-- result : " + result.getRawPAN());
+        Log.d(TAG, "<-- getActivity()  : " + this);
+
+        this.runOnUiThread(() -> {
+            Log.d(TAG, "== runOnUiThread.run() ==");
+
+            if (result.getResponseCode() == 0) {
+                bChangeActivityReadCard = true;
+                setData(result);
+                navigateToSignActivity(result);
+            } else {
+                processError(result);
+            }
+        });
+    }
+
+    private void navigateToSignActivity(TransactionDataResult result) {
+        Intent nextActivity = new Intent(this, POSSignTransaction.class);
+        nextActivity.putExtra(USER, "activity.m_user");
+        nextActivity.putExtra(PARAM_USER, "activity.m_user");
+        nextActivity.putExtra(CARDHOLDER, result.getCardHolderName());
+        nextActivity.putExtra(EXPDATE, result.getExpirationDate());
+        nextActivity.putExtra(USERNAME, "activity.m_userName");
+        nextActivity.putExtra(PARAM_USER_NAME, "activity.m_userName");
+        nextActivity.putExtra(LOTE, result.getBatNumberInternal());
+        nextActivity.putExtra(FOLIO, result.getTracingNumber());
+        nextActivity.putExtra(PARAM_RRC_EXT, result.getTracingNumber());
+        nextActivity.putExtra(BRAND, result.getProductName());
+        nextActivity.putExtra(RRC, result.getTransactionID());
+        nextActivity.putExtra(AUT, result.getAuthorizationNumber());
+        nextActivity.putExtra(PARAM_AUTHORIZATION_NUMBER, result.getAuthorizationNumber());
+        nextActivity.putExtra(CARD, result.getMaskedPAN());
+        nextActivity.putExtra(PARAM_MASKED_CARD, result.getMaskedPAN());
+        nextActivity.putExtra(AMOUNT, format.format(dTotal));
+        nextActivity.putExtra(PARAM_AUTHORIZED_AMOUNT, format.format(dTotal));
+        nextActivity.putExtra(PARAM_INVOKER, PARAM_VALUE_INVOKER_POS_SALES);
+        nextActivity.putExtra(AID, result.getAID());
+        nextActivity.putExtra(ARQC, result.getARQC());
+        nextActivity.putExtra(PRODUCTNAME, result.getProductName());
+        nextActivity.putExtra(ISSWIPE, getReadingMethod(result.isSwiped()));
+        nextActivity.putExtra(ISSN, result.getIssuerName());
+        nextActivity.putExtra(EMAIL_PAN, result.getEmail());
+
+        startActivity(nextActivity);
+        this.finish();
+    }
+
+    private String getReadingMethod(boolean isSwiped) {
         {
-            Log.d(TAG, "== onFinishedTransaction() ==");
-            Log.d(TAG, "<-- responseCode : " + result.getResponseCode());
-            Log.d(TAG, "<-- result : " + result.getRawPAN());
-            Log.d(TAG, "<-- getActivity()  : " + this);
+            Log.d(TAG, "== getReadingMethod() ==");
+            Log.d(TAG, "--> " + (isSwiped ? READING_METHOD_SWIPE : READING_METHOD_CHIP));
         }
-        if (this != null) {
 
-            this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Log.d(TAG, "== runOnUiThread.run() ==");
-
-                    if (result.getResponseCode() == 0) {
-                        bChangeActivityReadCard = true;
-                        setData(result);
-                    } else {
-                        processError(result);
-                    }
-                }
-            });
-
-        } else {
-            Log.d(TAG, " == Error en el OnFinishTransaction");
-
-        }
+        return isSwiped ? READING_METHOD_SWIPE : READING_METHOD_CHIP;
     }
 
     @Override
@@ -402,22 +433,22 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
         nextLine();
 
-       this.runOnUiThread(() -> {
-           switch (code){
-               case CODE_ERROR:
-                   tvData.append(Html.fromHtml(getColoredSpanned(message,RED_COLOR)));
-                   break;
-               case CODE_SUCESSFUL:
-                   tvData.append(Html.fromHtml(getColoredSpanned(message,GREEN_COLOR)));
-                   break;
-               case CODE_NORMAL:
-                   tvData.append(Html.fromHtml(getColoredSpanned(message,WHITE_COLOR)));
-                   break;
-               default:
-                   tvData.append(Html.fromHtml(getColoredSpanned(message,WHITE_COLOR)));
-                   throw new IllegalStateException("Unexpected value: " + code);
-           }
-       });
+        this.runOnUiThread(() -> {
+            switch (code){
+                case CODE_ERROR:
+                    tvData.append(Html.fromHtml(getColoredSpanned(message,RED_COLOR)));
+                    break;
+                case CODE_SUCESSFUL:
+                    tvData.append(Html.fromHtml(getColoredSpanned(message,GREEN_COLOR)));
+                    break;
+                case CODE_NORMAL:
+                    tvData.append(Html.fromHtml(getColoredSpanned(message,WHITE_COLOR)));
+                    break;
+                default:
+                    tvData.append(Html.fromHtml(getColoredSpanned(message,WHITE_COLOR)));
+                    throw new IllegalStateException("Unexpected value: " + code);
+            }
+        });
 
     }
 }

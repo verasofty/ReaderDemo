@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".POSSignTransaction">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="right"
+            android:text="@string/Amount_singular_Total"
+            app:layout_constraintEnd_toStartOf="@+id/tvAuthorizedAmountResult"
+            app:layout_constraintHorizontal_bias="0.734"
+            app:layout_constraintStart_toEndOf="@+id/tv_card_legend2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_card_legend" />
+
+        <TextView
+            android:id="@+id/tv_card_legend2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="right"
+            android:text="@string/singLegend"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAuthorizedAmountResult"
+            app:layout_constraintEnd_toStartOf="@+id/tv_card_legend"
+            app:layout_constraintHorizontal_bias="0.068"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_card_legend" />
+
+        <TextView
+            android:id="@+id/tvMaskedCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="right"
+            android:text="@string/CardValueDummie"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_card_legend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="right"
+            android:text="@string/cardLegend2"
+            app:layout_constraintEnd_toStartOf="@+id/tvMaskedCard"
+            app:layout_constraintHorizontal_bias="0.981"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAuthorizedAmountResult"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:gravity="right"
+            android:text="@string/zero_decimal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMaskedCard" />
+
+        <android.gesture.GestureOverlayView
+            android:id="@+id/gestures"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="65dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="65dp"
+            android:background="@drawable/gesture_background"
+            android:eventsInterceptionEnabled="true"
+            android:fadeOffset="3000"
+            android:gestureColor="@color/black"
+            android:gestureStrokeType="multiple"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/btnSend"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_amount">
+
+        </android.gesture.GestureOverlayView>
+
+
+        <Button
+            android:id="@+id/btnCleanSign"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@+id/btnSend"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/CleanSign"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnSend"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/gestures"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/confirmar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.984"
+            app:layout_constraintStart_toEndOf="@+id/btnCleanSign" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
