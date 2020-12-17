@@ -267,8 +267,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     private void navigateToSignActivity(TransactionDataResult result) {
         Intent nextActivity = new Intent(this, POSSignTransaction.class);
-        nextActivity.putExtra(USER, EMAIL);
-        nextActivity.putExtra(PARAM_USER, EMAIL);
+        nextActivity.putExtra(USER, "BACDFC5B-1");
+        nextActivity.putExtra(PARAM_USER, "BACDFC5B-1");
         nextActivity.putExtra(CARDHOLDER, result.getCardHolderName());
         nextActivity.putExtra(EXPDATE, result.getExpirationDate());
         nextActivity.putExtra(USERNAME, EMAIL);
