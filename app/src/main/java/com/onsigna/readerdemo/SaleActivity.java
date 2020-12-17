@@ -8,9 +8,11 @@ import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sf.upos.reader.HALReaderCallback;
 import com.sf.upos.reader.StatusReader;
@@ -37,6 +39,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private String GREEN_COLOR = "#008000";
     private String RED_COLOR = "#FF0000";
     private String WHITE_COLOR = "#000000";
+    private int REQUEST_CODE_SIGNATURE = 9009;
+    private static final String EMAIL = "juda.escalera@gmail.com";
 
     private final int CODE_ERROR = 1;
     private final int CODE_SUCESSFUL = 2;
@@ -157,7 +161,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         request.setLatitud(gpsLocator.getLatitud());
         request.setLongitud(gpsLocator.getLongitud());
         request.setAmount(etMonto.getText().toString());
-        request.setFeeAmount(m_feeAmount);
+        request.setFeeAmount(null);
         request.setMesero(description);
         request.setReference1(description);
         request.setReference2(description);
@@ -197,14 +201,13 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     }
 
     private void actions() {
-        btnSale.setOnClickListener(view -> startTransaction());
-
-        btnMovements.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navigate();
-            }
+        btnSale.setOnClickListener(view ->{
+            InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(etMonto.getWindowToken(), 0);
+            startTransaction();
         });
+
+        btnMovements.setOnClickListener(view -> navigate());
     }
 
     private void navigate() {
@@ -255,6 +258,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
             if (result.getResponseCode() == 0) {
                 bChangeActivityReadCard = true;
                 setData(result);
+
                 navigateToSignActivity(result);
             } else {
                 processError(result);
@@ -264,12 +268,12 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     private void navigateToSignActivity(TransactionDataResult result) {
         Intent nextActivity = new Intent(this, POSSignTransaction.class);
-        nextActivity.putExtra(USER, "activity.m_user");
-        nextActivity.putExtra(PARAM_USER, "activity.m_user");
+        nextActivity.putExtra(USER, EMAIL);
+        nextActivity.putExtra(PARAM_USER, EMAIL);
         nextActivity.putExtra(CARDHOLDER, result.getCardHolderName());
         nextActivity.putExtra(EXPDATE, result.getExpirationDate());
-        nextActivity.putExtra(USERNAME, "activity.m_userName");
-        nextActivity.putExtra(PARAM_USER_NAME, "activity.m_userName");
+        nextActivity.putExtra(USERNAME, EMAIL);
+        nextActivity.putExtra(PARAM_USER_NAME, EMAIL);
         nextActivity.putExtra(LOTE, result.getBatNumberInternal());
         nextActivity.putExtra(FOLIO, result.getTracingNumber());
         nextActivity.putExtra(PARAM_RRC_EXT, result.getTracingNumber());
@@ -287,10 +291,9 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         nextActivity.putExtra(PRODUCTNAME, result.getProductName());
         nextActivity.putExtra(ISSWIPE, getReadingMethod(result.isSwiped()));
         nextActivity.putExtra(ISSN, result.getIssuerName());
-        nextActivity.putExtra(EMAIL_PAN, result.getEmail());
+        nextActivity.putExtra(EMAIL_PAN, EMAIL);
 
-        startActivity(nextActivity);
-        this.finish();
+        startActivityForResult(nextActivity, REQUEST_CODE_SIGNATURE);
     }
 
     private String getReadingMethod(boolean isSwiped) {
@@ -426,6 +429,22 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         this.runOnUiThread(() ->
                 tvData.append("\n")
         );
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try {
+            super.onActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == REQUEST_CODE_SIGNATURE  && resultCode  == RESULT_OK) {
+
+                writeConsole(CODE_SUCESSFUL, "== Venta con firma autógrafa ==");
+
+            }
+        } catch (Exception ex) {
+            Toast.makeText(this, ex.toString(), Toast.LENGTH_SHORT).show();
+        }
 
     }
 

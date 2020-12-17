@@ -64,7 +64,6 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
         if (BuildConfig.DEBUG) Log.d(TAG, "== onCreate() ==");
 
         super.onCreate(savedInstanceState);
-        //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_sign_transaction);
 
@@ -103,7 +102,6 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
         if (timer != null)
             timer.cancel();
     }
-
 
     @Override
     public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
@@ -186,10 +184,6 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
                     stringId = R.string.search;
                     break;
                 case EditorInfo.IME_ACTION_DONE:
-                    stringId = R.string.welcome;
-                    sendMail(new View(getApplicationContext()));
-                    break;
-
                 case 66:
                     stringId = R.string.welcome;
                     sendMail(new View(getApplicationContext()));
@@ -303,7 +297,7 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
                     auxiliar.alertMessageError(getResources().getString(R.string.message_error_sending_voucher));
                 else auxiliar.alertMessageError(result.getResponseCodeDescription());
             else
-                // auxiliar.messageOK(getResources().getString(R.string.message_sending_mail));
+                 auxiliar.messageOK(getResources().getString(R.string.message_sending_mail));
 
                 try {
                     timer.schedule(taskCloseDialog, 3000, 3000);
@@ -311,39 +305,18 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
                     Log.e(TAG, exep.toString());
                     navigateToNextActivity();
                 }
-
         }
 
     }
 
     private void navigateToNextActivity() {
-        if (BuildConfig.DEBUG) Log.d(TAG, "== navigateToNextActivity() ==");
-        Intent intent = new Intent();
+        Log.d(TAG, "== navigateToNextActivity() ==");
+        Intent intent = getIntent();
+        intent.putExtra(AUTHORIZATION_NUMBER, "009812");
+        setResult(RESULT_OK, intent);
+        finish();
 
-        switch (invoker) {
-            case PARAM_VALUE_INVOKER_TX_INFO:
-                //ntent = new Intent(POSSignTransaction.this, MainMenu.class);
-                break;
-
-            case PARAM_VALUE_INVOKER_POS_SALES:
-                //intent = new Intent(POSSignTransaction.this, MainMenu.class);
-                break;
-
-            default:
-                Log.e(TAG, "Unknown invoker : " + invoker);
-                throw new RuntimeException(getResources().getString(R.string.message_error_app));
-        }
-
-        intent.putExtra(PARAM_USER, m_user);
-        intent.putExtra(PARAM_USER_NAME, userName);
-        intent.putExtra(B_SIGN, B_SIGN);
-        intent.putExtra(TYPE_OPERATION_POS, TransactionDataRequest.TT_PURCHASE);
-        intent.putExtra(FOLIO, m_tracingNumber);
-        intent.putExtra(AUTHORIZATION_NUMBER, authorizationNumber);
-        startActivity(intent);
-        POSSignTransaction.this.finish();
     }
-
 
     public void cleanSign(View view) {
         if (BuildConfig.DEBUG) Log.d(TAG, "== cleanSign() ==");
@@ -366,12 +339,12 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
     public void sendMail(View view) {
         if (BuildConfig.DEBUG) Log.d(TAG, "== sendMail() ==");
 
+
         if (!emailPan.equals(EMPTY_STRING)) {
             if (!validaMailAddress(emailPan)) {
                 Toast.makeText(this, getResources().getString(R.string.message_error_invalid_mail), Toast.LENGTH_SHORT).show();
             }
         }
-
 
         onGesturePerformed(gestures, gestures.getGesture());
 
