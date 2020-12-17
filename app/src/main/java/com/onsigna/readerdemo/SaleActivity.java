@@ -258,7 +258,6 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
             if (result.getResponseCode() == 0) {
                 bChangeActivityReadCard = true;
                 setData(result);
-
                 navigateToSignActivity(result);
             } else {
                 processError(result);
