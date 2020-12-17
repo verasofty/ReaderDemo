@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         actions();
 
         setServiceURL();
+        initReader();
     }
 
     private void setServiceURL() {
@@ -111,11 +112,11 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
     private void actions() {
 
         btnNext.setOnClickListener(view -> {
-            if ( reader == null || !bConnected ){
+            /*if ( reader == null || !bConnected ){
                 //Toast.makeText(getBaseContext(), "Conecte primero el lector a usar", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this, Movements.class));
                 return ;
-            }
+            }*/
 
             Intent intent = new Intent(MainActivity.this, SaleActivity.class);
             startActivity(intent);
