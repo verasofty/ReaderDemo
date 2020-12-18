@@ -7,21 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import com.sf.connectors.ISwitchConnector;
-import com.sf.upos.reader.HALReaderCallback;
-import com.sf.upos.reader.IHALReader;
-import com.sf.upos.reader.ReaderMngr;
-import com.sf.upos.reader.StatusReader;
-import com.sfmex.upos.reader.TransactionData;
-import com.sfmex.upos.reader.TransactionDataResult;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +16,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.sf.connectors.ISwitchConnector;
+import com.sf.upos.reader.*;
+import com.sfmex.upos.reader.TransactionData;
+import com.sfmex.upos.reader.TransactionDataResult;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -38,20 +33,15 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.BLUETOOTH;
 import static android.Manifest.permission.BLUETOOTH_ADMIN;
 import static com.sf.upos.reader.dspread.bluetooth.QPOSReader.DEVICE_ID;
-import static com.sfmex.utils.StringUtils.EMPTY_STRING;
 
 public class MainActivity extends AppCompatActivity implements HALReaderCallback, SaleActivity.OnCancelTransactionListener {
-
-    private final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int PERMISSION_REQUEST_CODE = 200;
 
     public final static String MONTO = "MONTO";
     public final static String PROPINA = "PROPINA";
     public final static String DESCRIPTION = "DESCRIPTION";
-    public String m_user = EMPTY_STRING;
-    public String m_userName = EMPTY_STRING;
 
-
-    private static final int PERMISSION_REQUEST_CODE = 200;
     public static IHALReader reader;
     public static ArrayList<String> deviceArray = new ArrayList<>();
     public static ArrayList<String> deviceArrayCustom = new ArrayList<>();
@@ -72,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpView();
-        actions();
+        setupActions();
 
         setServiceURL();
         initReader();
@@ -82,20 +72,19 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         SharedPreferences prefs;
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        prefs.edit().putString(ISwitchConnector.SHARED_PREFERENCES_URL, getResources().getString(R.string.DEFAULT_URL))
-                .commit();
+        prefs.edit().putString(ISwitchConnector.SHARED_PREFERENCES_URL, getResources().getString(R.string.DEFAULT_URL)).commit();
     }
 
     public void deviceConnected() {
         Log.d(TAG, "== Device is connected ==");
-        btnConnect.setText("MPos CONNECTED!!!");
+        btnConnect.setText("mPos CONNECTED!!!");
         btnConnect.setTextColor(Color.GREEN);
         bConnected = true;
     }
 
     public void deviceDisconectedUi() {
         Log.d(TAG, " == deviceDisconectedUi ()==");
-        btnConnect.setText("MPos NOT CONNECTED!!!");
+        btnConnect.setText("mPos NOT CONNECTED!!!");
         btnConnect.setTextColor(Color.RED);
         bConnected = false;
     }
@@ -109,8 +98,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
     }
 
-    private void actions() {
-
+    private void setupActions() {
         btnNext.setOnClickListener(view -> {
             /*if ( reader == null || !bConnected ){
                 //Toast.makeText(getBaseContext(), "Conecte primero el lector a usar", Toast.LENGTH_LONG).show();
@@ -121,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
             Intent intent = new Intent(MainActivity.this, SaleActivity.class);
             startActivity(intent);
         });
-
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,13 +121,14 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
             @Override
             public void onRefresh() {
                 Log.d(TAG, "Actualizando dispositivos..");
+
                 lista = (ListView) findViewById(R.id.list_device);
                 deviceArrayCustom = new ArrayList<>();
                 deviceArray = new ArrayList<>();
                 adaptador = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, deviceArrayCustom);
                 lista.setAdapter(adaptador);
 
-                if (reader != null) {
+                if ( reader != null ) {
                     Toast.makeText(getBaseContext(), getResources().getString(R.string.message_refresh_devices), Toast.LENGTH_SHORT).show();
                     reader.stopScan(MainActivity.this, MainActivity.this);
                     reader.scan(MainActivity.this, MainActivity.this);
@@ -168,12 +156,11 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
     }
 
     private void initConnectBT() {
-        if (verifyStateBluetooth()) {
+        if ( verifyBluetoothState() ) {
             initializesPermission();
             initReader();
-            //connectBT();
             forceConnect();
-            //PosScanDeviceDialog.display(getFragmentManager(), this, new Bundle());
+
             return;
         } else {
             activeBluetooth();
@@ -204,8 +191,8 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
     private void initReader() {
         Log.d(TAG, "== initReader() ==");
 
-        if (reader == null) {
-            Log.d(TAG, "reader ==> init---");
+        if ( reader == null ) {
+            Log.d(TAG, "instancing reader (getReader)");
             reader = ReaderMngr.getReader(ReaderMngr.HW_DSPREAD_QPOS);
         }
     }
@@ -259,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
 
     }
 
-    private boolean verifyStateBluetooth() {
+    private boolean verifyBluetoothState() {
         Log.d(TAG, "== verifyStateBluetooth() ==");
         final BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
         return bluetooth.isEnabled();
