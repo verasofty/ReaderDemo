@@ -21,6 +21,7 @@
 
     <TextView
         android:scrollbars = "vertical"
+        android:gravity="bottom"
         android:id="@+id/tvData"
         android:layout_width="match_parent"
         android:layout_height="0sp"

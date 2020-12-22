@@ -265,7 +265,6 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         return bluetooth.isEnabled();
     }
 
-
     @Override
     public void onFinishedTransaction(TransactionDataResult transactionDataResult) {
         Log.d(TAG, "== onFinishedTransaction() ==");

@@ -161,7 +161,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         request.setLatitud(gpsLocator.getLatitud());
         request.setLongitud(gpsLocator.getLongitud());
         request.setAmount(etMonto.getText().toString());
-        request.setFeeAmount(null);
+        request.setFeeAmount("0");
         request.setMesero(description);
         request.setReference1(description);
         request.setReference2(description);
@@ -221,27 +221,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         writeConsole(CODE_ERROR, "== processError() ==");
         Log.d(TAG, "result? -> " + result.getRawPAN());
         writeConsole(CODE_ERROR, "ResponseCode ->" + result.getResponseCode());
-
-        Log.d(TAG, "tdr.responseCode --> " + String.valueOf(result.getResponseCode()));
-
-        switch (result.getResponseCode()) {
-            case TransactionDataResult.RESP_CODE_CARD_NO_PRESENT:
-            case TransactionDataResult.RESP_CODE_UNPLUGGED_READER:
-                //dismiss();
-                //activity.auxiliar.alertMessageError(result.getResponseCodeDescription());
-
-                writeConsole(CODE_ERROR, "ResponseCodeDescription() ->" + result.getResponseCodeDescription());
-                break;
-
-            case TransactionDataResult.RESP_CODE_CONEXION_ERROR:
-            case TransactionDataResult.RESP_CODE_READER_REVERSE:
-            case TransactionDataResult.RESP_CODE_NOT_OK:
-            default:
-                //dismiss();
-                //activity.auxiliar.alertMessageError(result.getResponseCodeDescription());
-                writeConsole(CODE_ERROR, "ResponseCodeDescription() ->" + result.getResponseCodeDescription());
-
-        }
+        writeConsole(CODE_ERROR, "ResponseCodeDescription() ->" + result.getResponseCodeDescription());
 
     }
 
