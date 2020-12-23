@@ -44,7 +44,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation ('com.github.verasofty:reader:v1.3.2') {
+    implementation ('com.github.verasofty:reader:v1.3.5') {
         transitive = true
     }
     implementation 'androidx.appcompat:appcompat:1.2.0'

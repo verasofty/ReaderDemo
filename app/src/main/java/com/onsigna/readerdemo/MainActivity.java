@@ -72,10 +72,9 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpView();
-        actions();
-
-        setServiceURL();
         initReader();
+        actions();
+        setServiceURL();
     }
 
     private void setServiceURL() {
