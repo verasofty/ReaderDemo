@@ -7,21 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import com.sf.connectors.ISwitchConnector;
-import com.sf.upos.reader.HALReaderCallback;
-import com.sf.upos.reader.IHALReader;
-import com.sf.upos.reader.ReaderMngr;
-import com.sf.upos.reader.StatusReader;
-import com.sfmex.upos.reader.TransactionData;
-import com.sfmex.upos.reader.TransactionDataResult;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +15,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.sf.connectors.ISwitchConnector;
+import com.sf.upos.reader.*;
+import com.sfmex.upos.reader.TransactionData;
+import com.sfmex.upos.reader.TransactionDataResult;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -133,13 +128,14 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
             @Override
             public void onRefresh() {
                 Log.d(TAG, "Actualizando dispositivos..");
+
                 lista = (ListView) findViewById(R.id.list_device);
                 deviceArrayCustom = new ArrayList<>();
                 deviceArray = new ArrayList<>();
                 adaptador = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, deviceArrayCustom);
                 lista.setAdapter(adaptador);
 
-                if (reader != null) {
+                if ( reader != null ) {
                     Toast.makeText(getBaseContext(), getResources().getString(R.string.message_refresh_devices), Toast.LENGTH_SHORT).show();
                     reader.stopScan(MainActivity.this, MainActivity.this);
                     reader.scan(MainActivity.this, MainActivity.this);
@@ -167,12 +163,12 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
     }
 
     private void initConnectBT() {
-        if (verifyStateBluetooth()) {
+        if ( verifyBluetoothState() ) {
             initializesPermission();
             initReader();
             //connectBT();
             forceConnect();
-            //PosScanDeviceDialog.display(getFragmentManager(), this, new Bundle());
+
             return;
         } else {
             activeBluetooth();
@@ -203,8 +199,8 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
     private void initReader() {
         Log.d(TAG, "== initReader() ==");
 
-        if (reader == null) {
-            Log.d(TAG, "reader ==> init---");
+        if ( reader == null ) {
+            Log.d(TAG, "instancing reader (getReader)");
             reader = ReaderMngr.getReader(ReaderMngr.HW_DSPREAD_QPOS);
         }
     }
@@ -258,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
 
     }
 
-    private boolean verifyStateBluetooth() {
+    private boolean verifyBluetoothState() {
         Log.d(TAG, "== verifyStateBluetooth() ==");
         final BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
         return bluetooth.isEnabled();
