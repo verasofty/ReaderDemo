@@ -46,6 +46,7 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
     private String userName;
     private String m_authorizedAmount;
     private String m_maskedCard;
+    private String m_authenticationType;
     private int invoker;
     private String authorizationNumber;
     private String m_tracingNumber;
@@ -70,6 +71,9 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
         setInputParameters();
         settingUpUIControls();
         settingUpScreen();
+
+        if ( m_authenticationType.equals("PIN") )
+            new ExecuteSend().execute();
     }
 
     private final TimerTask taskCloseDialog = new TimerTask() {
@@ -207,21 +211,23 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
         userName = intent.getStringExtra(PARAM_USER_NAME);
         m_authorizedAmount = intent.getStringExtra(PARAM_AUTHORIZED_AMOUNT);
         m_maskedCard = intent.getStringExtra(PARAM_MASKED_CARD);
+        m_authenticationType = intent.getStringExtra(PARAM_AUTHENTICATION_TYPE);
         authorizationNumber = intent.getStringExtra(PARAM_AUTHORIZATION_NUMBER);
         m_tracingNumber = intent.getStringExtra(PARAM_RRC_EXT);
         invoker = intent.getIntExtra(PARAM_INVOKER, PARAM_VALUE_INVOKER_TX_INFO);
-        transaction_type = intent.getStringExtra(PARAM_VALUE_INVOKER_POS_DEVOLUTION);
+        transaction_type = "V";
         emailPan = intent.getStringExtra(EMAIL_PAN);
 
-        Log.d(TAG, "user : " + m_user);
-        Log.d(TAG, "userName : " + userName);
-        Log.d(TAG, "authorizedAmount : " + m_authorizedAmount);
-        Log.d(TAG, "maskedCard : " + m_maskedCard);
-        Log.d(TAG, "Invoker : " + invoker);
-        Log.d(TAG, "authNumber : " + authorizationNumber);
-        Log.d(TAG, "RRCExt : " + m_tracingNumber);
-        Log.d(TAG, "TransactionType : " + transaction_type);
-        Log.d(TAG, "emailPan : " + emailPan);
+        Log.d(TAG, "user --> " + m_user);
+        Log.d(TAG, "userName --> " + userName);
+        Log.d(TAG, "authorizedAmount --> " + m_authorizedAmount);
+        Log.d(TAG, "maskedCard --> " + m_maskedCard);
+        Log.d(TAG, "Invoker --> " + invoker);
+        Log.d(TAG, "authNumber --> " + authorizationNumber);
+        Log.d(TAG, "RRCExt --> " + m_tracingNumber);
+        Log.d(TAG, "TransactionType --> " + transaction_type);
+        Log.d(TAG, "emailPan --> " + emailPan);
+        Log.d(TAG, "authenticationType --> " + m_authenticationType);
 
         Log.w(TAG, "Aqui se debe capturar si ocurrio algun error para enviar el mensaje al usuario y retornar a la invocaciÃ³n");
 
@@ -261,7 +267,7 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
 
         protected TransactionDataResult doInBackground(final String... args) {
             if (BuildConfig.DEBUG) Log.d(TAG, "== ExecuteSend.doInBackground() ==");
-            if (m_bitMapSignature == null)
+            if (m_bitMapSignature == null && m_authenticationType.equals("SIGN"))
                 return null;
 
             TransactionDataRequest req = new TransactionDataRequest();
@@ -282,7 +288,7 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
             IHALReader reader = ReaderMngr.getReader(preferences.getString(ReaderMngr.DEFAULT_READER, ReaderMngr.HW_DSPREAD_QPOS));
             ((GenericReader) reader).getSwitchConnector().setContext(POSSignTransaction.this);
 
-            return ((GenericReader) reader).getSwitchConnector().signTransaction(null, req);
+            return ((GenericReader) reader).getSwitchConnector().signTransaction(m_bitMapSignature, req);
 
         }
 

@@ -54,6 +54,7 @@ public class POSSystem {
     public static final int IDMENU_PAYBACK = 11;
     
     
+    public static final String PARAM_AUTHENTICATION_TYPE = "AUTHENTICATION_TYPE";
     public static final String PARAM_USER = "USER";
     public static final String PARAM_USER_NAME = "USERNAME";
     public static final String PARAM_RRC_EXT = "RETRIEVAL_REFERENCE_NUMBER_EXT";

@@ -197,6 +197,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         writeConsole(CODE_SUCESSFUL, "AuthNumber -> " + result.getAuthorizationNumber());
         writeConsole(CODE_SUCESSFUL, "Tarjeta -> " + result.getMaskedPAN());
         writeConsole(CODE_SUCESSFUL, "tlv -> " + result.getTlvResponse());
+        writeConsole(CODE_SUCESSFUL, "Tipo de Firma --> " + result.getAuthenticationType());
 
     }
 
@@ -262,8 +263,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         nextActivity.putExtra(PARAM_AUTHORIZATION_NUMBER, result.getAuthorizationNumber());
         nextActivity.putExtra(CARD, result.getMaskedPAN());
         nextActivity.putExtra(PARAM_MASKED_CARD, result.getMaskedPAN());
-        nextActivity.putExtra(AMOUNT, format.format(dTotal));
-        nextActivity.putExtra(PARAM_AUTHORIZED_AMOUNT, format.format(dTotal));
+        nextActivity.putExtra(AMOUNT, result.getAmount());
+        nextActivity.putExtra(PARAM_AUTHORIZED_AMOUNT, result.getAmount());
         nextActivity.putExtra(PARAM_INVOKER, PARAM_VALUE_INVOKER_POS_SALES);
         nextActivity.putExtra(AID, result.getAID());
         nextActivity.putExtra(ARQC, result.getARQC());
@@ -271,6 +272,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         nextActivity.putExtra(ISSWIPE, getReadingMethod(result.isSwiped()));
         nextActivity.putExtra(ISSN, result.getIssuerName());
         nextActivity.putExtra(EMAIL_PAN, EMAIL);
+        nextActivity.putExtra(PARAM_AUTHENTICATION_TYPE, result.getAuthenticationType());
 
         startActivityForResult(nextActivity, REQUEST_CODE_SIGNATURE);
     }
