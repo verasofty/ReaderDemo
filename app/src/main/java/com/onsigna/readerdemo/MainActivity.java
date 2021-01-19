@@ -29,6 +29,7 @@ import com.sfmex.upos.reader.TransactionDataResult;
 import java.util.ArrayList;
 import java.util.Map;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.BLUETOOTH;
 import static android.Manifest.permission.BLUETOOTH_ADMIN;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         initReader();
         actions();
         setServiceURL();
+        initializesPermission();
     }
 
     private void setServiceURL() {
@@ -137,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
 
                 if ( reader != null ) {
                     Toast.makeText(getBaseContext(), getResources().getString(R.string.message_refresh_devices), Toast.LENGTH_SHORT).show();
-                    reader.stopScan(MainActivity.this, MainActivity.this);
+                    //reader.stopScan(MainActivity.this, MainActivity.this);
                     reader.scan(MainActivity.this, MainActivity.this);
                     pullToRefresh.setRefreshing(false);
                 } else {
@@ -152,8 +154,8 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name = (String) parent.getItemAtPosition(position);
                 String nameArray = deviceArray.get(position);
-                Log.d(TAG, "Dispositivo seleccionado  name==> " + name);
-                Log.d(TAG, "Dispositivo seleccionado  nameArray==> " + nameArray);
+                Log.d(TAG, "Dispositivo seleccionado  name ==> " + name);
+                Log.d(TAG, "Dispositivo seleccionado  nameArray ==> " + nameArray);
                 saveIdDevice(null, nameArray);
                 Toast.makeText(getBaseContext(), "Intentando conectar con " + name, Toast.LENGTH_LONG).show();
                 bStopConnected = true;
@@ -166,8 +168,8 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         if ( verifyBluetoothState() ) {
             initializesPermission();
             initReader();
-            //connectBT();
-            forceConnect();
+            connectBT();
+            //forceConnect();
 
             return;
         } else {
@@ -189,7 +191,6 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, deviceArrayCustom);
         lista.setAdapter(adaptador);
         if (stop) {
-            //fragment.deviceDisconectedUi();
             reader.stop(this, this);
         }
         reader.scan(this, this);
@@ -227,10 +228,11 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         }
     }
 
+
     private void requestPermission() {
         Log.d(TAG, "== requestPermission() ==");
 
-        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, BLUETOOTH, BLUETOOTH_ADMIN}, PERMISSION_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, BLUETOOTH, BLUETOOTH_ADMIN, ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_CODE);
 
     }
 
@@ -240,10 +242,12 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         int result1 = ContextCompat.checkSelfPermission(getBaseContext(), ACCESS_FINE_LOCATION);
         int result2 = ContextCompat.checkSelfPermission(getBaseContext(), BLUETOOTH);
         int result3 = ContextCompat.checkSelfPermission(getBaseContext(), BLUETOOTH_ADMIN);
+        int result4 = ContextCompat.checkSelfPermission(getBaseContext(), ACCESS_COARSE_LOCATION);
 
         return result1 == PackageManager.PERMISSION_GRANTED
                 && result2 == PackageManager.PERMISSION_GRANTED
-                && result3 == PackageManager.PERMISSION_GRANTED;
+                && result3 == PackageManager.PERMISSION_GRANTED
+                && result4 == PackageManager.PERMISSION_GRANTED;
 
     }
 
@@ -321,7 +325,6 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
                     deviceArrayCustom.add(nameCustom);
                 }
             }
-
 
         }
         Log.d(TAG, "deviceArray.length ==>" + deviceArray.size());

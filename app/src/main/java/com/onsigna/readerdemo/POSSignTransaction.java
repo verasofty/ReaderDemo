@@ -14,6 +14,7 @@ import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -288,6 +289,7 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
             IHALReader reader = ReaderMngr.getReader(preferences.getString(ReaderMngr.DEFAULT_READER, ReaderMngr.HW_DSPREAD_QPOS));
             ((GenericReader) reader).getSwitchConnector().setContext(POSSignTransaction.this);
 
+            System.out.println("Base64 -> " + toBase64(m_bitMapSignature));
             return ((GenericReader) reader).getSwitchConnector().signTransaction(m_bitMapSignature, req);
 
         }
@@ -303,9 +305,9 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
                     auxiliar.alertMessageError(getResources().getString(R.string.message_error_sending_voucher));
                 else auxiliar.alertMessageError(result.getResponseCodeDescription());
             else
-                 auxiliar.messageOK(getResources().getString(R.string.message_sending_mail));
 
                 try {
+                    auxiliar.messageOK(getResources().getString(R.string.message_sending_mail));
                     timer.schedule(taskCloseDialog, 3000, 3000);
                 } catch (Exception exep) {
                     Log.e(TAG, exep.toString());
@@ -321,6 +323,23 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
         intent.putExtra(AUTHORIZATION_NUMBER, "009812");
         setResult(RESULT_OK, intent);
         finish();
+
+    }
+
+
+    private String toBase64(Bitmap bitmap) {
+
+        try {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream .toByteArray();
+
+            return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        } catch (Exception e){
+            e.printStackTrace();
+            Log.e(TAG, "Bitmap es nulo");
+            return null;
+        }
 
     }
 

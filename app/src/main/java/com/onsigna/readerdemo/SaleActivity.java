@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sf.connectors.RESTConnector;
 import com.sf.upos.reader.HALReaderCallback;
 import com.sf.upos.reader.StatusReader;
 import com.sfmex.upos.reader.TransactionData;
@@ -34,7 +35,6 @@ import static com.sfmex.utils.StringUtils.EMPTY_STRING;
 public class SaleActivity extends AppCompatActivity implements HALReaderCallback {
 
     private final String TAG = SaleActivity.class.getSimpleName();
-
 
     private String GREEN_COLOR = "#008000";
     private String RED_COLOR = "#FF0000";
@@ -220,7 +220,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
         nextLine();
         writeConsole(CODE_ERROR, "== processError() ==");
-        Log.d(TAG, "result? -> " + result.getRawPAN());
+        Log.d(TAG, "result? -> " + result.toString());
         writeConsole(CODE_ERROR, "ResponseCode ->" + result.getResponseCode());
         writeConsole(CODE_ERROR, "ResponseCodeDescription() ->" + result.getResponseCodeDescription());
 
@@ -420,7 +420,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
             if (requestCode == REQUEST_CODE_SIGNATURE  && resultCode  == RESULT_OK) {
 
-                writeConsole(CODE_SUCESSFUL, "== Venta con firma autógrafa ==");
+                //writeConsole(CODE_SUCESSFUL, "== Venta con firma autógrafa ==");
 
             }
         } catch (Exception ex) {
