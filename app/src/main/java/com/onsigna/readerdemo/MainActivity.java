@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.onsigna.domain.AuthenticateData;
 import com.sf.connectors.ISwitchConnector;
 import com.sf.upos.reader.*;
 import com.sfmex.upos.reader.TransactionData;
@@ -58,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
     public boolean connectedListSync;
     public boolean bConnected;
 
-    public SharedPreferences sharedPreferences;
+    public static SharedPreferences sharedPreferences;
 
     private Button btnConnect;
     private Button btnNext;
@@ -72,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         actions();
         setServiceURL();
         initializesPermission();
+        checkConnection();
+        checkModel();
     }
 
     private void setServiceURL() {
@@ -164,6 +170,68 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
 
     }
 
+    private void checkConnection() {
+        Log.d(TAG, "== checkConnection() ==");
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+
+        //For 3G check
+        boolean is3g = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+                .isConnectedOrConnecting();
+        //For WiFi Check
+        boolean isWifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+                .isConnectedOrConnecting();
+
+        System.out.println("-> " + is3g + " net " + isWifi);
+
+        if (!is3g && !isWifi)
+        {
+            Log.d(TAG, "Please make sure your Network Connection is ON ");
+        }
+        else
+        {
+           Log.d(TAG, "");
+        }
+    }
+
+    private String checkModel() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+
+        Long tsLong = System.currentTimeMillis()/1000;
+        String ts = tsLong.toString();
+
+        String SO = Build.MODEL + " " + android.os.Build.BRAND +" ("
+                + android.os.Build.VERSION.RELEASE+")"
+                + " API-" + android.os.Build.VERSION.SDK_INT;
+        Log.d(TAG, "SO -> " + SO + " timeStamp -> " + ts);
+        if (model.startsWith(manufacturer)) {
+            return capitalize(model);
+        }
+        return capitalize(manufacturer) + " " + model;
+    }
+
+    private static String capitalize(String str) {
+        if (TextUtils.isEmpty(str)) {
+            return str;
+        }
+        char[] arr = str.toCharArray();
+        boolean capitalizeNext = true;
+
+        StringBuilder phrase = new StringBuilder();
+        for (char c : arr) {
+            if (capitalizeNext && Character.isLetter(c)) {
+                phrase.append(Character.toUpperCase(c));
+                capitalizeNext = false;
+                continue;
+            } else if (Character.isWhitespace(c)) {
+                capitalizeNext = true;
+            }
+            phrase.append(c);
+        }
+
+        return phrase.toString();
+    }
+
     private void initConnectBT() {
         if ( verifyBluetoothState() ) {
             initializesPermission();
@@ -199,6 +267,10 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
 
     private void initReader() {
         Log.d(TAG, "== initReader() ==");
+        AuthenticateData.applicationSecret = "qs4qa1ralmgb4cna";
+        AuthenticateData.applicationKey = "8z00pj9qxh3vaaggo7lfyw2xkj3rv80c7o1u";
+        AuthenticateData.applicationBundle = "test.api.service";
+
 
         if ( reader == null ) {
             Log.d(TAG, "instancing reader (getReader)");

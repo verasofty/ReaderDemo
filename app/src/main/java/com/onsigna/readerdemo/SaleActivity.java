@@ -2,6 +2,7 @@ package com.onsigna.readerdemo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -9,6 +10,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,6 +18,8 @@ import android.widget.Toast;
 
 import com.sf.connectors.RESTConnector;
 import com.sf.upos.reader.HALReaderCallback;
+import com.sf.upos.reader.IHALReader;
+import com.sf.upos.reader.ReaderMngr;
 import com.sf.upos.reader.StatusReader;
 import com.sfmex.upos.reader.TransactionData;
 import com.sfmex.upos.reader.TransactionDataRequest;
@@ -23,12 +27,14 @@ import com.sfmex.upos.reader.TransactionDataResult;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
 import java.util.Map;
 
 import static com.onsigna.readerdemo.MainActivity.DESCRIPTION;
 import static com.onsigna.readerdemo.MainActivity.MONTO;
 import static com.onsigna.readerdemo.MainActivity.PROPINA;
 import static com.onsigna.readerdemo.utils.POSSystem.*;
+import static com.sf.upos.reader.dspread.bluetooth.QPOSReader.DEVICE_ID;
 import static com.sf.utils.StringUtils.ZERO;
 import static com.sfmex.utils.StringUtils.EMPTY_STRING;
 
@@ -40,6 +46,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private String RED_COLOR = "#FF0000";
     private String WHITE_COLOR = "#000000";
     private int REQUEST_CODE_SIGNATURE = 9009;
+    private String DEVICE_BUSY = "DEVICE_BUSY";
     private static final String EMAIL = "juda.escalera@gmail.com";
 
     private final int CODE_ERROR = 1;
@@ -56,8 +63,10 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private String m_user = EMPTY_STRING;
     private String m_userName = EMPTY_STRING;
     private final static String NOT_IMPLEMENTED = "Funcionality not implemented";
+    private Boolean isConnectedDevice = false;
 
     private MainActivity mainActivity;
+    public static IHALReader readerSale;
     private GPSLocator gpsLocator;
     private DBHelper dbHelper;
 
@@ -70,6 +79,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sale);
+        initReader();
         setUpView();
         actions();
         parseIntentParameters();
@@ -169,7 +179,9 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         request.setB_purchaseAndRecurringCharge("F");
         request.setOperation(EMPTY_STRING);
 
-        MainActivity.reader.startTransaction(this, request, 30000, this);
+
+        //MainActivity.reader.startTransaction(this, request, 30000, this);
+        readerSale.startTransaction(this, request, 30000, this);
     }
 
     private void setUpView () {
@@ -208,8 +220,55 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
             startTransaction();
         });
 
-        btnMovements.setOnClickListener(view -> navigate());
+        btnMovements.setOnClickListener(view ->
+                initConnectBT()
+        );
     }
+
+    private void initConnectBT() {
+        if ( verifyBluetoothState() ) {
+
+            if (isConnectedDevice) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(etMonto.getWindowToken(), 0);
+                startTransaction();
+            } else {
+                connectBT();
+            }
+
+        } else {
+            activeBluetooth();
+        }
+    }
+
+    protected void activeBluetooth() {
+        Log.d(TAG, "== activeBluetooth() ==");
+
+        Toast.makeText(getBaseContext(),"Active el bluetooth", Toast.LENGTH_LONG).show();
+
+    }
+
+    private boolean verifyBluetoothState() {
+        Log.d(TAG, "== verifyStateBluetooth() ==");
+        final BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
+        return bluetooth.isEnabled();
+    }
+
+    private void connectBT() {
+
+        readerSale.scan(this, this);
+
+    }
+
+    private void initReader() {
+        Log.d(TAG, "== initReader() ==");
+
+        if ( readerSale == null ) {
+            Log.d(TAG, "instancing reader (getReader)");
+            readerSale = ReaderMngr.getReader(ReaderMngr.HW_DSPREAD_QPOS);
+        }
+    }
+
 
     private void navigate() {
         startActivity(new Intent(this, Movements.class));
@@ -221,8 +280,16 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         nextLine();
         writeConsole(CODE_ERROR, "== processError() ==");
         Log.d(TAG, "result? -> " + result.toString());
+        Log.d(TAG, "ResponseCodeDescription() -> " + result.getResponseCodeDescription());
         writeConsole(CODE_ERROR, "ResponseCode ->" + result.getResponseCode());
         writeConsole(CODE_ERROR, "ResponseCodeDescription() ->" + result.getResponseCodeDescription());
+
+        /*if (result.getResponseCodeDescription().equals(DEVICE_BUSY)) {
+            Log.e(TAG, "== Se encontró el error de DEVICE_BUSY ==");
+            startTransaction();
+        } else {
+
+        }*/
 
     }
 
@@ -339,11 +406,14 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     public void onReaderDetected(String readerInfo) {
         Log.d(TAG, "== onReaderDetected() ==");
         Log.d(TAG, "readerInfo --> " + readerInfo);
+        MainActivity.sharedPreferences.edit().putString(DEVICE_ID, readerInfo).commit();
+        readerSale.stopScan(this, this);
     }
 
     @Override
     public void onReaderConnected() {
         Log.d(TAG, "== onReaderConnected() ==");
+        isConnectedDevice = true;
         nextLine();
         writeConsole(CODE_SUCESSFUL, "== Lector conectado ==");
     }
@@ -353,6 +423,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     {
         Log.d(TAG, " == onReaderNotConnected ()==");
         mainActivity.bConnected = false;
+        isConnectedDevice = false;
         nextLine();
         writeConsole(CODE_ERROR, "== Lector desconectado ==");
         Log.d(TAG, "bStopConnected ==" + mainActivity.bStopConnected);
@@ -368,7 +439,10 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     @Override
     public void onStopScan() {
-
+        Log.d(TAG, "== onStopScan() ==");
+        InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(etMonto.getWindowToken(), 0);
+        startTransaction();
     }
 
     @Override
@@ -389,8 +463,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         Log.d(TAG, "== onStop () ==");
         super.onStop();
         // if (bChangeActivityReadCard) {
-        if (MainActivity.reader != null) {
-            MainActivity.reader.stop(this, this);
+        if (readerSale != null) {
+            readerSale.stop(this, this);
             //MainActivity.deviceDisconectedUi();
             if (onCancelTransactionListener != null) {
                 onCancelTransactionListener.onFinishTrn();
