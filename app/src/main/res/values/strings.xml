@@ -269,7 +269,7 @@
 
     <!--<string name="DEFAULT_URL">http://192.168.137.1:8080/MTT/POSOnLineServices</string>
     <string name="DEFAULT_SERVICE_PAYMENTS_URL">http://192.168.137.1:8080/MTT/ServicesPayments</string>-->
-    <string name="DEFAULT_URL">https://kashplataforma.com:2028/MTT/services/</string>
+    <string name="DEFAULT_URL">http://18.214.206.247:7071/KashPay/</string>
     <string name="DEFAULT_SERVICE_PAYMENTS_URL">https://sfpayments.com.mx:40443/MTT/POSOnLineServices</string>
     <string name="DEFAULT_AVISO_PRIVACIDAD">https://sfpayments.com.mx:40443/SF/SiteSfMobile/AvisoDePrivacidad.pdf</string>
     <string name="URL_TERM_AND_CONDITIONS">https://sfpayments.com.mx:40443/SF/SiteSfMobile/terminos_affipay.pdf</string>
@@ -282,7 +282,6 @@
     <string name="Text">Status: -</string>
     <string name="List">List paired Devices</string>
     <string name="Find">Search new Devices / Cancel</string>
-
 
     <!-- ARREGLOS -->
     <string-array name="monthsnoint_array">

@@ -81,10 +81,10 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
     }
 
     private void setServiceURL() {
-        SharedPreferences prefs;
-        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        prefs.edit().putString(ISwitchConnector.SHARED_PREFERENCES_URL, getResources().getString(R.string.DEFAULT_URL))
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        sharedPreferences.edit().putString(ISwitchConnector.SHARED_PREFERENCES_URL, getResources().getString(R.string.DEFAULT_URL))
                 .commit();
     }
 
@@ -108,20 +108,22 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         btnConnect.setText("Conecta con el lector");
         btnConnect.setTextColor(Color.WHITE);
         btnNext = (Button) findViewById(R.id.btnNext);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
     }
 
     private void actions() {
 
         btnNext.setOnClickListener(view -> {
-            /*if ( reader == null || !bConnected ){
-                //Toast.makeText(getBaseContext(), "Conecte primero el lector a usar", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(this, Movements.class));
-                return ;
-            }*/
 
-            Intent intent = new Intent(MainActivity.this, SaleActivity.class);
-            startActivity(intent);
+            Log.d(TAG, "DEVICE -> " + sharedPreferences.getString(DEVICE_ID,"SIN_DATO"));
+
+            if (sharedPreferences.getString(DEVICE_ID,"SIN_DATO").equals("SIN_DATO")) {
+                Toast.makeText(getBaseContext(), "Si es la primera vez que inicias la app, primero conecta el lector, después no es necesario", Toast.LENGTH_LONG).show();
+            } else {
+                Intent intent = new Intent(MainActivity.this, SaleActivity.class);
+                startActivity(intent);
+            }
+
         });
 
         btnConnect.setOnClickListener(new View.OnClickListener() {
@@ -281,6 +283,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
     private void saveIdDevice(DialogInterface dialog, String nameDevice) {
         Log.d(TAG, "== saveIdDevice () ==");
         MainActivity.this.sharedPreferences.edit().putString(DEVICE_ID, nameDevice).commit();
+
         // dialog.dismiss();
         //reader.stopScan(MainActivity.this, this);
         reader.connect(MainActivity.this, this);

@@ -287,7 +287,7 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(POSSignTransaction.this);
 
             IHALReader reader = ReaderMngr.getReader(preferences.getString(ReaderMngr.DEFAULT_READER, ReaderMngr.HW_DSPREAD_QPOS));
-            ((GenericReader) reader).getSwitchConnector().setContext(POSSignTransaction.this);
+            ((GenericReader) reader).getSwitchConnector().setContext(POSSignTransaction.this, m_user);
 
             System.out.println("Base64 -> " + toBase64(m_bitMapSignature));
             return ((GenericReader) reader).getSwitchConnector().signTransaction(m_bitMapSignature, req);
