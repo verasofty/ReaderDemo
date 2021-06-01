@@ -74,6 +74,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private Button btnMovements;
     private TextView tvData;
     private EditText etMonto;
+    private String user_terminal = "amucss_comercio1@gmial.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,7 +168,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private void startTransaction() {
         Log.d(TAG, "== startTransaction() ==");
         TransactionDataRequest request = new TransactionDataRequest();
-        request.setUser("BACDFC5B-1");
+
+        request.setUser(user_terminal);
         request.setLatitud(gpsLocator.getLatitud());
         request.setLongitud(gpsLocator.getLongitud());
         request.setAmount(etMonto.getText().toString());
@@ -315,8 +317,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     private void navigateToSignActivity(TransactionDataResult result) {
         Intent nextActivity = new Intent(this, POSSignTransaction.class);
-        nextActivity.putExtra(USER, "BACDFC5B-1");
-        nextActivity.putExtra(PARAM_USER, "BACDFC5B-1");
+        nextActivity.putExtra(USER, user_terminal);
+        nextActivity.putExtra(PARAM_USER, user_terminal);
         nextActivity.putExtra(CARDHOLDER, result.getCardHolderName());
         nextActivity.putExtra(EXPDATE, result.getExpirationDate());
         nextActivity.putExtra(USERNAME, EMAIL);
