@@ -180,7 +180,21 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         request.setOperation(EMPTY_STRING);
 
         //MainActivity.reader.startTransaction(this, request, 30000, this);
-        readerSale.startTransaction(this, request, 30000, this);
+
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try  {
+                    readerSale.startTransaction(SaleActivity.this, request, 30000, SaleActivity.this);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
     }
 
     private void setUpView () {
@@ -264,7 +278,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
         if ( readerSale == null ) {
             Log.d(TAG, "instancing reader (getReader)");
-            readerSale = ReaderMngr.getReader(ReaderMngr.HW_DSPREAD_QPOS);
+            readerSale = ReaderMngr.getReader(ReaderMngr.HW_SUNMI_READER);
         }
     }
 

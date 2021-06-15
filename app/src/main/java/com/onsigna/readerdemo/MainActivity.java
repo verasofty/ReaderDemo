@@ -118,7 +118,9 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
             Log.d(TAG, "DEVICE -> " + sharedPreferences.getString(DEVICE_ID,"SIN_DATO"));
 
             if (sharedPreferences.getString(DEVICE_ID,"SIN_DATO").equals("SIN_DATO")) {
-                Toast.makeText(getBaseContext(), "Si es la primera vez que inicias la app, primero conecta el lector, después no es necesario", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getBaseContext(), "Si es la primera vez que inicias la app, primero conecta el lector, después no es necesario", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this, SaleActivity.class);
+                startActivity(intent);
             } else {
                 Intent intent = new Intent(MainActivity.this, SaleActivity.class);
                 startActivity(intent);
@@ -276,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
 
         if ( reader == null ) {
             Log.d(TAG, "instancing reader (getReader)");
-            reader = ReaderMngr.getReader(ReaderMngr.HW_DSPREAD_QPOS);
+            reader = ReaderMngr.getReader(ReaderMngr.HW_SUNMI_READER);
         }
     }
 
