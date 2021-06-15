@@ -44,9 +44,10 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation ('com.github.verasofty:reader:v1.7.6') {
-        transitive = true
+    implementation ('com.github.verasofty:reader:v1.8.9') {
+        exclude group : 'com.github.verasofty', module : 'PayLib-release-1.4.43'
     }
+    implementation project(path: ':PayLib-release-1.4.43')
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'

@@ -11,6 +11,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/PayLib-release-1.4.43" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/dspread_2.8.8" />
           </set>

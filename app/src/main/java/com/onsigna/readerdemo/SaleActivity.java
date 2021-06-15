@@ -179,7 +179,6 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         request.setB_purchaseAndRecurringCharge("F");
         request.setOperation(EMPTY_STRING);
 
-
         //MainActivity.reader.startTransaction(this, request, 30000, this);
         readerSale.startTransaction(this, request, 30000, this);
     }
