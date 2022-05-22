@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.onsigna.readerdemo.utils.Auxiliar;
+import com.sf.connectors.ConnectorMngr;
 import com.sf.upos.reader.GenericReader;
 import com.sf.upos.reader.IHALReader;
 import com.sf.upos.reader.ReaderMngr;
@@ -280,7 +281,6 @@ public class POSSignTransaction extends AppCompatActivity implements OnGesturePe
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(POSSignTransaction.this);
 
             IHALReader reader = ReaderMngr.getReader(preferences.getString(ReaderMngr.DEFAULT_READER, ReaderMngr.HW_DSPREAD_QPOS));
-            ((GenericReader) reader).getSwitchConnector().setContext(POSSignTransaction.this);
 
             return ((GenericReader) reader).getSwitchConnector().signTransaction(null, req);
 

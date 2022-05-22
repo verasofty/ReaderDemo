@@ -115,6 +115,7 @@ public class POSSystem {
 	public final static String ISSWIPE = "ISSWIPE";
 	public final static String ISSN = "ISSN";
 	public final static String EMAIL_PAN = "com.email.pan";
+	public static final String PARAM_AUTHENTICATION_TYPE = "AUTHENTICATION_TYPE";
 	public final static String RAW_PAN = "RAW_PAN";
 	public final static String RAW_CVV = "RAW_CVV";
 	public final static String RAW_EXP_DATE = "RAW_EXP_DATE";

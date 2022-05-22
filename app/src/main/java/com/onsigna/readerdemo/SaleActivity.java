@@ -1,45 +1,50 @@
 package com.onsigna.readerdemo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import static com.onsigna.readerdemo.utils.POSSystem.*;
+import static com.sf.utils.StringUtils.ZERO;
+import static com.sfmex.utils.StringUtils.EMPTY_STRING;
+import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
+import com.onsigna.domain.AuthenticateData;
+import com.onsigna.readerdspreadlib.QPOSHALReaderImpl;
+import com.sf.connectors.ConnectorMngr;
+import com.sf.connectors.ISwitchConnector;
+import com.sf.upos.reader.GenericReader;
 import com.sf.upos.reader.HALReaderCallback;
+import com.sf.upos.reader.IHALReader;
 import com.sf.upos.reader.StatusReader;
 import com.sfmex.upos.reader.TransactionData;
 import com.sfmex.upos.reader.TransactionDataRequest;
 import com.sfmex.upos.reader.TransactionDataResult;
-
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Map;
-
-import static com.onsigna.readerdemo.MainActivity.DESCRIPTION;
-import static com.onsigna.readerdemo.MainActivity.MONTO;
-import static com.onsigna.readerdemo.MainActivity.PROPINA;
-import static com.onsigna.readerdemo.utils.POSSystem.*;
-import static com.sf.utils.StringUtils.ZERO;
-import static com.sfmex.utils.StringUtils.EMPTY_STRING;
+import sfsystems.mobile.messaging.MobileResponse;
+import sfsystems.mobile.messaging.PrintingInfo;
 
 public class SaleActivity extends AppCompatActivity implements HALReaderCallback {
 
     private final String TAG = SaleActivity.class.getSimpleName();
 
+    private final String GREEN_COLOR = "#008000";
+    private final String RED_COLOR = "#FF0000";
+    private final String WHITE_COLOR = "#000000";
+    private final int REQUEST_CODE_SIGNATURE = 9009;
 
-    private String GREEN_COLOR = "#008000";
-    private String RED_COLOR = "#FF0000";
-    private String WHITE_COLOR = "#000000";
-    private int REQUEST_CODE_SIGNATURE = 9009;
     private static final String EMAIL = "juda.escalera@gmail.com";
 
     private final int CODE_ERROR = 1;
@@ -47,32 +52,40 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private final int CODE_NORMAL = 0;
     private String m_amount = "0";
     private String m_feeAmount = "0";
-    private String description = EMPTY_STRING;
+    private final String description = EMPTY_STRING;
     private double dTotal = 0;
     private TransactionData m_swipedCardTD;
-    private boolean bChangeActivityReadCard;
+    public static SharedPreferences sharedPreferences;
     private OnCancelTransactionListener onCancelTransactionListener;
     private DecimalFormat format;
-    private String m_user = EMPTY_STRING;
-    private String m_userName = EMPTY_STRING;
+    private final String m_user = EMPTY_STRING;
+    private final String m_userName = EMPTY_STRING;
     private final static String NOT_IMPLEMENTED = "Funcionality not implemented";
+    private Boolean isConnectedDevice = false;
 
-    private MainActivity mainActivity;
+    public static IHALReader readerSale;
     private GPSLocator gpsLocator;
     private DBHelper dbHelper;
-
     private Button btnSale;
-    private Button btnMovements;
     private TextView tvData;
     private EditText etMonto;
+    private final String user_terminal = "amucss_comercio1@gmial.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sale);
+        initReader();
         setUpView();
         actions();
         parseIntentParameters();
+        setServiceURL();
+    }
+
+    private void setServiceURL() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sharedPreferences.edit().putString(ISwitchConnector.SHARED_PREFERENCES_URL, getResources().getString(R.string.DEFAULT_URL))
+                .apply();
     }
 
     public interface OnCancelTransactionListener {
@@ -157,7 +170,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private void startTransaction() {
         Log.d(TAG, "== startTransaction() ==");
         TransactionDataRequest request = new TransactionDataRequest();
-        request.setUser("BACDFC5B-1");
+
+        request.setUser(user_terminal);
         request.setLatitud(gpsLocator.getLatitud());
         request.setLongitud(gpsLocator.getLongitud());
         request.setAmount(etMonto.getText().toString());
@@ -169,23 +183,32 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         request.setB_purchaseAndRecurringCharge("F");
         request.setOperation(EMPTY_STRING);
 
-        MainActivity.reader.startTransaction(this, request, 30000, this);
+        //MainActivity.reader.startTransaction(this, request, 30000, this);
+
+
+        Thread thread = new Thread(() -> {
+            try  {
+                readerSale.startTransaction(SaleActivity.this, request, 30000, SaleActivity.this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        thread.start();
     }
 
     private void setUpView () {
-        btnSale = (Button) findViewById(R.id.btnSale);
-        btnMovements =  (Button) findViewById(R.id.btnMovements);
-        tvData = (TextView) findViewById(R.id.tvData);
-        etMonto = (EditText) findViewById(R.id.etMonto);
+        tvData = findViewById(R.id.tvData);
+        etMonto = findViewById(R.id.etMonto);
         tvData.setText(EMPTY_STRING);
         tvData.setMovementMethod(new ScrollingMovementMethod());
-
+        btnSale = findViewById(R.id.btnSale);
         gpsLocator = new GPSLocator(this);
         gpsLocator.writeSignalGPS(this);
         dbHelper = new DBHelper(getBaseContext(), getResources().getString(R.string.db_Name),
                 null, getResources().getInteger(R.integer.db_Version));
 
-        mainActivity = new MainActivity();
+        MainActivity mainActivity = new MainActivity();
     }
 
     private void setData(TransactionDataResult result) {
@@ -197,21 +220,63 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         writeConsole(CODE_SUCESSFUL, "AuthNumber -> " + result.getAuthorizationNumber());
         writeConsole(CODE_SUCESSFUL, "Tarjeta -> " + result.getMaskedPAN());
         writeConsole(CODE_SUCESSFUL, "tlv -> " + result.getTlvResponse());
+        writeConsole(CODE_SUCESSFUL, "Tipo de Firma --> " + result.getAuthenticationType());
 
     }
 
     private void actions() {
-        btnSale.setOnClickListener(view ->{
-            InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(etMonto.getWindowToken(), 0);
-            startTransaction();
-        });
 
-        btnMovements.setOnClickListener(view -> navigate());
+        btnSale.setOnClickListener(view -> initConnectBT());
+
     }
 
-    private void navigate() {
-        startActivity(new Intent(this, Movements.class));
+    private void initConnectBT() {
+        if ( verifyBluetoothState() ) {
+
+            if (isConnectedDevice) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(etMonto.getWindowToken(), 0);
+                startTransaction();
+            } else {
+                connectBT();
+            }
+
+        } else {
+            activeBluetooth();
+        }
+    }
+
+    protected void activeBluetooth() {
+        Log.d(TAG, "== activeBluetooth() ==");
+
+        Toast.makeText(getBaseContext(),"Active el bluetooth", Toast.LENGTH_LONG).show();
+
+    }
+
+    private boolean verifyBluetoothState() {
+        Log.d(TAG, "== verifyStateBluetooth() ==");
+        final BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter();
+        return bluetooth.isEnabled();
+    }
+
+    private void connectBT() {
+
+        readerSale.scan(this, this);
+
+    }
+
+    private void initReader() {
+        Log.d(TAG, "== initReader() ==");
+
+        AuthenticateData.applicationSecret = "qs4qa1ralmgb4cna";
+        AuthenticateData.applicationKey = "8z00pj9qxh3vaaggo7lfyw2xkj3rv80c7o1u";
+        AuthenticateData.applicationBundle = "test.api.service";
+
+        if ( readerSale == null ) {
+            Log.d(TAG, "instancing reader (getReader)");
+            readerSale = new QPOSHALReaderImpl();
+            ((GenericReader)readerSale).setSwitchConnector( ConnectorMngr.getConnectorByID(ConnectorMngr.REST_CONNECTOR) );
+        }
     }
 
     private void processError(TransactionDataResult result) {
@@ -219,10 +284,10 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
         nextLine();
         writeConsole(CODE_ERROR, "== processError() ==");
-        Log.d(TAG, "result? -> " + result.getRawPAN());
+        Log.d(TAG, "result? -> " + result.toString());
+        Log.d(TAG, "ResponseCodeDescription() -> " + result.getResponseCodeDescription());
         writeConsole(CODE_ERROR, "ResponseCode ->" + result.getResponseCode());
         writeConsole(CODE_ERROR, "ResponseCodeDescription() ->" + result.getResponseCodeDescription());
-
     }
 
     @Override
@@ -236,9 +301,10 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
             Log.d(TAG, "== runOnUiThread.run() ==");
 
             if (result.getResponseCode() == 0) {
-                bChangeActivityReadCard = true;
                 setData(result);
-                navigateToSignActivity(result);
+                if ( !(result.getAuthenticationType().equals("PIN")) ) {
+                    navigateToSignActivity(result);
+                }
             } else {
                 processError(result);
             }
@@ -247,8 +313,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     private void navigateToSignActivity(TransactionDataResult result) {
         Intent nextActivity = new Intent(this, POSSignTransaction.class);
-        nextActivity.putExtra(USER, "BACDFC5B-1");
-        nextActivity.putExtra(PARAM_USER, "BACDFC5B-1");
+        nextActivity.putExtra(USER, user_terminal);
+        nextActivity.putExtra(PARAM_USER, user_terminal);
         nextActivity.putExtra(CARDHOLDER, result.getCardHolderName());
         nextActivity.putExtra(EXPDATE, result.getExpirationDate());
         nextActivity.putExtra(USERNAME, EMAIL);
@@ -262,8 +328,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         nextActivity.putExtra(PARAM_AUTHORIZATION_NUMBER, result.getAuthorizationNumber());
         nextActivity.putExtra(CARD, result.getMaskedPAN());
         nextActivity.putExtra(PARAM_MASKED_CARD, result.getMaskedPAN());
-        nextActivity.putExtra(AMOUNT, format.format(dTotal));
-        nextActivity.putExtra(PARAM_AUTHORIZED_AMOUNT, format.format(dTotal));
+        nextActivity.putExtra(AMOUNT, result.getAmount());
+        nextActivity.putExtra(PARAM_AUTHORIZED_AMOUNT, result.getAmount());
         nextActivity.putExtra(PARAM_INVOKER, PARAM_VALUE_INVOKER_POS_SALES);
         nextActivity.putExtra(AID, result.getAID());
         nextActivity.putExtra(ARQC, result.getARQC());
@@ -271,6 +337,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         nextActivity.putExtra(ISSWIPE, getReadingMethod(result.isSwiped()));
         nextActivity.putExtra(ISSN, result.getIssuerName());
         nextActivity.putExtra(EMAIL_PAN, EMAIL);
+        nextActivity.putExtra(PARAM_AUTHENTICATION_TYPE, result.getAuthenticationType());
 
         startActivityForResult(nextActivity, REQUEST_CODE_SIGNATURE);
     }
@@ -299,22 +366,14 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     @Override
     public void onSwipedCard(TransactionData td) {
-        {
-            Log.d(TAG, "== onSwipedCard() ==");
-            Log.d(TAG, "<-- getMaskedPAN :" + td.getMaskedPAN());
-            Log.d(TAG, "<-- ExpirationDate : " + td.getExpirationDateEx());
-        }
+        Log.d(TAG, "== onSwipedCard() ==");
+        Log.d(TAG, "getMaskedPAN --> " + td.getMaskedPAN());
+        Log.d(TAG, " ExpirationDate --> " + td.getExpirationDateEx());
 
         m_swipedCardTD = td;
 
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "== runInto() ==");
-                m_swipedCardTD.setCVV("123");
-                changeDialog(getResources().getString(R.string.dlg_card_swipe));
-                //new ExecuteSendSwipedCard().execute();
-            }
+        this.runOnUiThread(() -> {
+            new ExecuteSendSwipedCard().execute();
         });
     }
 
@@ -337,11 +396,14 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     public void onReaderDetected(String readerInfo) {
         Log.d(TAG, "== onReaderDetected() ==");
         Log.d(TAG, "readerInfo --> " + readerInfo);
+        sharedPreferences.edit().putString(DEVICE_ID, readerInfo).commit();
+        readerSale.stopScan(this, this);
     }
 
     @Override
     public void onReaderConnected() {
         Log.d(TAG, "== onReaderConnected() ==");
+        isConnectedDevice = true;
         nextLine();
         writeConsole(CODE_SUCESSFUL, "== Lector conectado ==");
     }
@@ -350,13 +412,9 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     public void onReaderNotConnected()
     {
         Log.d(TAG, " == onReaderNotConnected ()==");
-        mainActivity.bConnected = false;
+        isConnectedDevice = false;
         nextLine();
         writeConsole(CODE_ERROR, "== Lector desconectado ==");
-        Log.d(TAG, "bStopConnected ==" + mainActivity.bStopConnected);
-        if (mainActivity.bStopConnected) {
-            //mainActivity.reader.connect(SaleActivity.this, this);
-        }
     }
 
     @Override
@@ -366,7 +424,10 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     @Override
     public void onStopScan() {
-
+        Log.d(TAG, "== onStopScan() ==");
+        InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(etMonto.getWindowToken(), 0);
+        startTransaction();
     }
 
     @Override
@@ -387,8 +448,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         Log.d(TAG, "== onStop () ==");
         super.onStop();
         // if (bChangeActivityReadCard) {
-        if (MainActivity.reader != null) {
-            MainActivity.reader.stop(this, this);
+        if (readerSale != null) {
+            readerSale.stop(this, this);
             //MainActivity.deviceDisconectedUi();
             if (onCancelTransactionListener != null) {
                 onCancelTransactionListener.onFinishTrn();
@@ -416,11 +477,9 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         try {
             super.onActivityResult(requestCode, resultCode, data);
 
-            if (requestCode == REQUEST_CODE_SIGNATURE  && resultCode  == RESULT_OK) {
-
+            if (requestCode == REQUEST_CODE_SIGNATURE  && resultCode  == RESULT_OK)
                 writeConsole(CODE_SUCESSFUL, "== Venta con firma autógrafa ==");
 
-            }
         } catch (Exception ex) {
             Toast.makeText(this, ex.toString(), Toast.LENGTH_SHORT).show();
         }
@@ -449,4 +508,65 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         });
 
     }
+
+    private class ExecuteSendSwipedCard extends AsyncTask<String, Void, MobileResponse> {
+        private final ProgressDialog dialog = new ProgressDialog(SaleActivity.this);
+
+        protected void onPreExecute() {
+            Log.d(TAG, "== ExecuteSendSwipedCard.onPreExecute() ==");
+
+            this.dialog.setMessage(getResources().getString(R.string.dlg_execCardCharge));
+            this.dialog.show();
+        }
+
+        protected MobileResponse doInBackground(final String... args) {
+            Log.d(TAG, "== ExecuteSendSwipedCard.onPreExecute() ==");
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SaleActivity.this);
+
+            ((GenericReader) readerSale).getSwitchConnector().setContext(SaleActivity.this, "b");
+            m_swipedCardTD.setOperationType(EMPTY_STRING);
+            m_swipedCardTD.setB_purchaseAndRecurringCharge("F");
+
+            m_swipedCardTD.setTlv("");
+            return ((GenericReader) readerSale).getSwitchConnector().doPurchase(m_swipedCardTD);
+        }
+
+        protected void onPostExecute(MobileResponse result) {
+            Log.d(TAG, "== ExecuteSendSwipedCard.onPostExecute() ==");
+
+            if (dialog.isShowing()) dialog.dismiss();
+
+            Log.d(TAG, "result.getResponseCode() --> " + result.getResponseCode());
+            if (result.getResponseCode() == 0) {
+                Intent nextActivity = new Intent(SaleActivity.this, POSSignTransaction.class);
+
+                nextActivity.putExtra(USER, m_user);
+                nextActivity.putExtra(USERNAME, m_userName);
+                nextActivity.putExtra(CARDHOLDER, m_swipedCardTD.getCardHolderName());
+                nextActivity.putExtra(CARD, m_swipedCardTD.getMaskedPAN());
+                nextActivity.putExtra(EXPDATE, m_swipedCardTD.getExpirationDateEx());
+                nextActivity.putExtra(RRC, m_swipedCardTD.getTransactionID());
+                nextActivity.putExtra(AUT, result.getAuthorizationNumber());
+                nextActivity.putExtra(AMOUNT, format.format(dTotal));
+                nextActivity.putExtra(ISSWIPE, getReadingMethod(true));
+                nextActivity.putExtra(EMAIL_PAN, result.getEmail());
+
+                PrintingInfo info = new PrintingInfo();
+                info.fromJSON(result.getDescription());
+
+                nextActivity.putExtra(LOTE, info.getBatNumberInternal());
+                nextActivity.putExtra(FOLIO, info.getTracingNumber());
+                nextActivity.putExtra(BRAND, info.getProductName());
+                nextActivity.putExtra(PRODUCTNAME, info.getProductName());
+
+                startActivity(nextActivity);
+                SaleActivity.this.finish();
+            } else
+                Log.e(TAG, "result.getDescription() --> " + result.getDescription());
+				/*finish();
+				startActivity(getIntent());*/
+        }
+    }
+
 }

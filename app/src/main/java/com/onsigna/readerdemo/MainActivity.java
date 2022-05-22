@@ -32,7 +32,7 @@ import java.util.Map;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.BLUETOOTH;
 import static android.Manifest.permission.BLUETOOTH_ADMIN;
-import static com.sf.upos.reader.dspread.bluetooth.QPOSReader.DEVICE_ID;
+import static com.onsigna.readerdemo.utils.POSSystem.DEVICE_ID;
 import static com.sfmex.utils.StringUtils.EMPTY_STRING;
 
 public class MainActivity extends AppCompatActivity implements HALReaderCallback, SaleActivity.OnCancelTransactionListener {
