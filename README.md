@@ -52,7 +52,8 @@ Agregar el repositorio donde se encuentra el componente AAR de KashPay, esto deb
 se deberá agregar la referencia en el archivo [build.gradle](/app/build.gradle) de la **aplicación**
 
 ```java
-   implementation 'com.github.verasofty:reader:v1.0.0'
+   implementation ('com.github.verasofty:readercore:v1.0.7')
+    implementation 'com.github.verasofty:ReaderDSpread:v0.9.03'
 ```
 
 Estos serían los pasos de configuración que deben llevarse a cabo para el correcto funcionamiento del componente.
@@ -74,9 +75,10 @@ import com.sf.upos.reader.ReaderMngr;
     ...
     
     private void initReader() {
-        if (reader == null) {
-            Log.d(TAG, "reader ==> init---");
-            reader = ReaderMngr.getReader(ReaderMngr.HW_DSPREAD_QPOS);
+        if ( readerSale == null ) {
+            Log.d(TAG, "instancing reader (getReader)");
+            readerSale = new QPOSHALReaderImpl();
+            ((GenericReader)readerSale).setSwitchConnector( ConnectorMngr.getConnectorByID(ConnectorMngr.REST_CONNECTOR) );
         }
     }
 ```
