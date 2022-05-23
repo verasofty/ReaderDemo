@@ -21,6 +21,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.onsigna.readerdspreadlib.QPOSHALReaderImpl;
+import com.sf.connectors.ConnectorMngr;
 import com.sf.connectors.ISwitchConnector;
 import com.sf.upos.reader.*;
 import com.sfmex.upos.reader.TransactionData;
@@ -38,14 +40,6 @@ import static com.sfmex.utils.StringUtils.EMPTY_STRING;
 public class MainActivity extends AppCompatActivity implements HALReaderCallback, SaleActivity.OnCancelTransactionListener {
 
     private final String TAG = MainActivity.class.getSimpleName();
-
-    public final static String MONTO = "MONTO";
-    public final static String PROPINA = "PROPINA";
-    public final static String DESCRIPTION = "DESCRIPTION";
-    public String m_user = EMPTY_STRING;
-    public String m_userName = EMPTY_STRING;
-
-
     private static final int PERMISSION_REQUEST_CODE = 200;
     public static IHALReader reader;
     public static ArrayList<String> deviceArray = new ArrayList<>();
@@ -56,9 +50,7 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
     public boolean bStopConnected = true;
     public boolean connectedListSync;
     public boolean bConnected;
-
     public SharedPreferences sharedPreferences;
-
     private Button btnConnect;
     private Button btnNext;
 
@@ -166,9 +158,8 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
         if ( verifyBluetoothState() ) {
             initializesPermission();
             initReader();
-            //connectBT();
-            forceConnect();
-
+            connectBT();
+            //forceConnect();
             return;
         } else {
             activeBluetooth();
@@ -201,7 +192,8 @@ public class MainActivity extends AppCompatActivity implements HALReaderCallback
 
         if ( reader == null ) {
             Log.d(TAG, "instancing reader (getReader)");
-            reader = ReaderMngr.getReader(ReaderMngr.HW_DSPREAD_QPOS);
+            reader = new QPOSHALReaderImpl();
+            ((GenericReader)reader).setSwitchConnector( ConnectorMngr.getConnectorByID(ConnectorMngr.REST_CONNECTOR) );
         }
     }
 

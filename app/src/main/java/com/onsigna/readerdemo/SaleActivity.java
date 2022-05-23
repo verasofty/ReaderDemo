@@ -231,9 +231,9 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private void initReader() {
         Log.d(TAG, "== initReader() ==");
 
-        AuthenticateData.applicationSecret = "qs4qa1ralmgb4cna";
-        AuthenticateData.applicationKey = "8z00pj9qxh3vaaggo7lfyw2xkj3rv80c7o1u";
-        AuthenticateData.applicationBundle = "test.api.service";
+        AuthenticateData.applicationSecret = "[SOLCITAR]";
+        AuthenticateData.applicationKey = "[SOLCITAR]";
+        AuthenticateData.applicationBundle = "[SOLCITAR]";
 
         if ( readerSale == null ) {
             Log.d(TAG, "instancing reader (getReader)");

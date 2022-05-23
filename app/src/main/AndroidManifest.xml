@@ -69,9 +69,9 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".POSSignTransaction"></activity>
         <activity android:name=".Movements" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".SaleActivity" />
         <activity
-            android:name=".SaleActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
