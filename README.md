@@ -14,6 +14,8 @@ Version | Autor               | Fecha      | Descripcion
 --------|---------------------|------------|----------------
 1.0     | Emilio Betancourt   | 2018-05-01 | Version inicial
 1.1     | Judá Escalera       | 2020-10-19 | UX
+1.2     | Judá Escalera       | 2021-08-20 | UX
+1.3     | Judá Escalera       | 2022-05-05 | UX
 
 # Introducción
 
@@ -68,11 +70,14 @@ Lo primero a realizar, debe ser la inicialización del lector. Para ello, se deb
 import com.sf.upos.reader.IHALReader;
 import com.sf.upos.reader.ReaderMngr;
 ```
+Después, inicializamos con los valores proporcionados por KashPay
 
 ```java
     public static IHALReader reader;
     
-    ...
+    AuthenticateData.applicationSecret = "[SOLCITAR]";
+    AuthenticateData.applicationKey = "[SOLCITAR]";
+    AuthenticateData.applicationBundle = "[SOLCITAR]";
     
     private void initReader() {
         if ( readerSale == null ) {
