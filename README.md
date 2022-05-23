@@ -75,9 +75,10 @@ import com.sf.upos.reader.ReaderMngr;
     ...
     
     private void initReader() {
-        if (reader == null) {
-            Log.d(TAG, "reader ==> init---");
-            reader = ReaderMngr.getReader(ReaderMngr.HW_DSPREAD_QPOS);
+        if ( readerSale == null ) {
+            Log.d(TAG, "instancing reader (getReader)");
+            readerSale = new QPOSHALReaderImpl();
+            ((GenericReader)readerSale).setSwitchConnector( ConnectorMngr.getConnectorByID(ConnectorMngr.REST_CONNECTOR) );
         }
     }
 ```
