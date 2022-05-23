@@ -48,10 +48,8 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private final int CODE_NORMAL = 0;
     private final int REQUEST_CODE_SIGNATURE = 9009;
 
-    private static final String EMAIL = "juda.escalera@gmail.com";
+    private static final String EMAIL = "[INGRESE_CORREO_PROPIO]";
 
-    private String m_amount = "0";
-    private String m_feeAmount = "0";
     private final String description = EMPTY_STRING;
     private double dTotal = 0;
     private TransactionData m_swipedCardTD;
@@ -69,7 +67,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private Button btnSale;
     private TextView tvData;
     private EditText etMonto;
-    private final String user_terminal = "amucss_comercio1@gmial.com";
+    private final String user_terminal = "[SOLICTAR]";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +76,6 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         initReader();
         setUpView();
         actions();
-        //parseIntentParameters();
         setServiceURL();
     }
 
@@ -107,30 +104,6 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
             writeConsole(CODE_NORMAL, description);
         }
     }
-
-    /*private void parseIntentParameters() {
-        Log.d(TAG, "== parseIntentParameters() ==");
-
-        if (getIntent().hasExtra(MONTO)) {
-            m_amount = getIntent().getStringExtra(MONTO);
-        }
-        if(getIntent().hasExtra(PROPINA)) {
-            m_feeAmount = getIntent().getStringExtra(PROPINA);
-        }
-        if(getIntent().hasExtra(DESCRIPTION)) {
-            m_feeAmount = getIntent().getStringExtra(DESCRIPTION);
-        }
-
-        dTotal = Double.parseDouble(m_amount) + Double.parseDouble(m_feeAmount);
-
-
-        Log.d(TAG, "<-- user: " + m_user);
-        Log.d(TAG, "<-- userName: " + m_userName);
-        Log.d(TAG, "<-- amount: " + m_amount);
-        Log.d(TAG, "<-- feeAmount: " + m_feeAmount);
-        Log.d(TAG, "<-- description: " + description);
-
-    }*/
 
     public DecimalFormat formatCurrency(String myAmount) {
 

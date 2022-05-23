@@ -42,12 +42,8 @@ android {
 }
 
 dependencies {
-    //implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    //implementation ('com.github.verasofty:reader:v1.8.38')
     implementation ('com.github.verasofty:readercore:v1.0.7')
-    //implementation 'com.github.verasofty:DspreadLibJAR:v1.0.0'
-    //implementation 'com.github.verasofty:LibraryConnectorAAR:v0.9.77'
     implementation 'com.github.verasofty:ReaderDSpread:v0.9.03'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
