@@ -43,13 +43,13 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private final String GREEN_COLOR = "#008000";
     private final String RED_COLOR = "#FF0000";
     private final String WHITE_COLOR = "#000000";
+    private final int CODE_ERROR = 1;
+    private final int CODE_SUCESSFUL = 2;
+    private final int CODE_NORMAL = 0;
     private final int REQUEST_CODE_SIGNATURE = 9009;
 
     private static final String EMAIL = "juda.escalera@gmail.com";
 
-    private final int CODE_ERROR = 1;
-    private final int CODE_SUCESSFUL = 2;
-    private final int CODE_NORMAL = 0;
     private String m_amount = "0";
     private String m_feeAmount = "0";
     private final String description = EMPTY_STRING;
@@ -78,7 +78,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         initReader();
         setUpView();
         actions();
-        parseIntentParameters();
+        //parseIntentParameters();
         setServiceURL();
     }
 
@@ -90,10 +90,6 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     public interface OnCancelTransactionListener {
         void onFinishTrn();
-    }
-
-    private void setOnCancelTransactionListener(OnCancelTransactionListener onCancelTransactionListener) {
-        this.onCancelTransactionListener = onCancelTransactionListener;
     }
 
     private void changeDialog(String description) {
@@ -110,10 +106,9 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
             nextLine();
             writeConsole(CODE_NORMAL, description);
         }
-
     }
 
-    private void parseIntentParameters() {
+    /*private void parseIntentParameters() {
         Log.d(TAG, "== parseIntentParameters() ==");
 
         if (getIntent().hasExtra(MONTO)) {
@@ -127,7 +122,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         }
 
         dTotal = Double.parseDouble(m_amount) + Double.parseDouble(m_feeAmount);
-        format = formatCurrency(getResources().getString(R.string.val_FormatCurrency));
+
 
         Log.d(TAG, "<-- user: " + m_user);
         Log.d(TAG, "<-- userName: " + m_userName);
@@ -135,8 +130,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         Log.d(TAG, "<-- feeAmount: " + m_feeAmount);
         Log.d(TAG, "<-- description: " + description);
 
-
-    }
+    }*/
 
     public DecimalFormat formatCurrency(String myAmount) {
 
@@ -183,9 +177,6 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         request.setB_purchaseAndRecurringCharge("F");
         request.setOperation(EMPTY_STRING);
 
-        //MainActivity.reader.startTransaction(this, request, 30000, this);
-
-
         Thread thread = new Thread(() -> {
             try  {
                 readerSale.startTransaction(SaleActivity.this, request, 30000, SaleActivity.this);
@@ -199,6 +190,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     private void setUpView () {
         tvData = findViewById(R.id.tvData);
+        format = formatCurrency(getResources().getString(R.string.val_FormatCurrency));
         etMonto = findViewById(R.id.etMonto);
         tvData.setText(EMPTY_STRING);
         tvData.setMovementMethod(new ScrollingMovementMethod());
@@ -207,8 +199,6 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         gpsLocator.writeSignalGPS(this);
         dbHelper = new DBHelper(getBaseContext(), getResources().getString(R.string.db_Name),
                 null, getResources().getInteger(R.integer.db_Version));
-
-        MainActivity mainActivity = new MainActivity();
     }
 
     private void setData(TransactionDataResult result) {
