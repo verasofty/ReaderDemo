@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.onsigna.domain.AuthenticateData;
+import com.onsigna.domain.TransactionData2;
 import com.onsigna.readerdspreadlib.QPOSHALReaderImpl;
 import com.sf.connectors.ConnectorMngr;
 import com.sf.connectors.ISwitchConnector;
@@ -30,9 +31,11 @@ import com.sf.upos.reader.StatusReader;
 import com.sfmex.upos.reader.TransactionData;
 import com.sfmex.upos.reader.TransactionDataRequest;
 import com.sfmex.upos.reader.TransactionDataResult;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Map;
+
 import sfsystems.mobile.messaging.MobileResponse;
 import sfsystems.mobile.messaging.PrintingInfo;
 
@@ -48,7 +51,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private final int CODE_NORMAL = 0;
     private final int REQUEST_CODE_SIGNATURE = 9009;
 
-    private static final String EMAIL = "[INGRESE_CORREO_PROPIO]";
+    private static final String EMAIL = "juda.escalera@gmail.com";
 
     private final String description = EMPTY_STRING;
     private double dTotal = 0;
@@ -67,7 +70,11 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private Button btnSale;
     private TextView tvData;
     private EditText etMonto;
-    private final String user_terminal = "[SOLICTAR]";
+    //private final String user_terminal = "gfy_test1@gmail.com";
+    //private final String user_terminal = "PL9182BOMBA1Y2@gmail.com";
+    //private final String user_terminal = "comisio1n@comision.com";
+    //private final String user_terminal = "caja1comer@san.com";
+    private final String user_terminal = "tomtom2@gmail.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +88,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
 
     private void setServiceURL() {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        sharedPreferences.edit().putString(ISwitchConnector.SHARED_PREFERENCES_URL, getResources().getString(R.string.DEFAULT_URL))
+        sharedPreferences.edit().putString(ISwitchConnector.SHARED_PREFERENCES_URL, getResources().getString(R.string.DEFAULT_URL_SDBX))
                 .apply();
     }
 
@@ -138,7 +145,9 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         Log.d(TAG, "== startTransaction() ==");
         TransactionDataRequest request = new TransactionDataRequest();
 
+        request.setAuthorizationNumber("");
         request.setUser(user_terminal);
+        request.setTypeOperation("V");
         request.setLatitud(gpsLocator.getLatitud());
         request.setLongitud(gpsLocator.getLongitud());
         request.setAmount(etMonto.getText().toString());
@@ -149,6 +158,10 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         request.setTransactionID(formatString(dbHelper.getNewRRC(), ZERO, 6, true));
         request.setB_purchaseAndRecurringCharge("F");
         request.setOperation(EMPTY_STRING);
+
+        request.setAuthorizationNumber("431528");
+        request.setRetrivalReferenceCode("433758674835");
+        request.setSequenceNumber("000001");
 
         Thread thread = new Thread(() -> {
             try  {
@@ -182,8 +195,10 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         writeConsole(CODE_SUCESSFUL, "Transacción aprobada!");
         writeConsole(CODE_SUCESSFUL, "AuthNumber -> " + result.getAuthorizationNumber());
         writeConsole(CODE_SUCESSFUL, "Tarjeta -> " + result.getMaskedPAN());
+        writeConsole(CODE_SUCESSFUL, "ARQC -> " + result.getARQC() + ", AID -> " + result.getAID());
         writeConsole(CODE_SUCESSFUL, "tlv -> " + result.getTlvResponse());
         writeConsole(CODE_SUCESSFUL, "Tipo de Firma --> " + result.getAuthenticationType());
+        writeConsole(CODE_SUCESSFUL, "Comisión--> " + result.getSeattleAmount());
 
     }
 
@@ -231,9 +246,13 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     private void initReader() {
         Log.d(TAG, "== initReader() ==");
 
-        AuthenticateData.applicationSecret = "[SOLCITAR]";
+        /*AuthenticateData.applicationSecret = "[SOLCITAR]";
         AuthenticateData.applicationKey = "[SOLCITAR]";
-        AuthenticateData.applicationBundle = "[SOLCITAR]";
+        AuthenticateData.applicationBundle = "[SOLCITAR]";*/
+
+        AuthenticateData.applicationSecret = "qs4qa1ralmgb4cna";
+        AuthenticateData.applicationKey = "8z00pj9qxh3vaaggo7lfyw2xkj3rv80c7o1u";
+        AuthenticateData.applicationBundle = "test.api.service";
 
         if ( readerSale == null ) {
             Log.d(TAG, "instancing reader (getReader)");
@@ -258,6 +277,9 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
         Log.d(TAG, "== onFinishedTransaction() ==");
         Log.d(TAG, "<-- responseCode : " + result.getResponseCode());
         Log.d(TAG, "<-- result : " + result.getRawPAN());
+        Log.d(TAG, "<-- getARQC : " + result.getARQC());
+        Log.d(TAG, "<-- getAID : " + result.getAID());
+
         Log.d(TAG, "<-- getActivity()  : " + this);
 
         this.runOnUiThread(() -> {
@@ -402,7 +424,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
     @Override
     public void updateDialog(String text) {
         Log.d(TAG, "== updateDialog() ==");
-        Log.d(TAG, "text ==>" + text);
+        Log.d(TAG, "text ==> " + text);
         changeDialog(text);
     }
 
@@ -492,7 +514,7 @@ public class SaleActivity extends AppCompatActivity implements HALReaderCallback
             m_swipedCardTD.setB_purchaseAndRecurringCharge("F");
 
             m_swipedCardTD.setTlv("");
-            return ((GenericReader) readerSale).getSwitchConnector().doPurchase(m_swipedCardTD);
+            return ((GenericReader) readerSale).getSwitchConnector().doPurchase((TransactionData2) m_swipedCardTD);
         }
 
         protected void onPostExecute(MobileResponse result) {

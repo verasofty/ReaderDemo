@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 31
-    buildToolsVersion "29.0.3"
+    //buildToolsVersion "29.0.3"
 
     defaultConfig {
 
@@ -26,6 +26,8 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
 
     sourceSets.main {
@@ -43,8 +45,12 @@ android {
 
 dependencies {
 
-    implementation 'com.github.verasofty:readercore:v1.0.7'
-    implementation 'com.github.verasofty:ReaderDSpread:v0.9.03'
+    //implementation 'com.github.verasofty:BeansLibAAR:v1.0.0'
+    implementation 'com.github.verasofty:SFUtilsAAR:v1.0.0'
+    implementation 'com.github.verasofty:MobileSFMessagesAAR:v1.0.0'
+    implementation 'com.github.verasofty:WrapperDomainAAR:v1.0.4'
+    implementation 'com.github.verasofty:ReaderCore:v1.0.41'
+    implementation 'com.github.verasofty:ReaderDSpread:v0.9.051'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.6.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'

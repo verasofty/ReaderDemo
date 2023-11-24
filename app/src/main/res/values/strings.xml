@@ -267,6 +267,8 @@
     <string name="val_zeros">$0.00</string>
     <string name="zero_decimal">0.00</string>
 
+    <string name="DEFAULT_URL_SDBX">http://sdbx-antares.kashplataforma.com:7071/KashPay/</string>
+    <string name="DEFAULT_URL_PROD">https://api-antares.kashplataforma.com/KashPay/</string>
     <string name="DEFAULT_URL">http://18.214.206.247:7071/KashPay/</string>
     <string name="DEFAULT_SERVICE_PAYMENTS_URL">https://sfpayments.com.mx:40443/MTT/POSOnLineServices</string>
     <string name="DEFAULT_AVISO_PRIVACIDAD">https://sfpayments.com.mx:40443/SF/SiteSfMobile/AvisoDePrivacidad.pdf</string>
